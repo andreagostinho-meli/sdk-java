@@ -22,6 +22,7 @@ public class OrderClient extends MercadoPagoClient {
     private static final Logger LOGGER = Logger.getLogger(OrderClient.class.getName());
 
     private static final String URL_WITH_ID = "/v1/orders/%s";
+    private static final String URL_PROCESS = URL_WITH_ID + "/process";
 
     /** Default constructor. Uses the default http client used by the SDK. */
     public OrderClient() {
@@ -110,9 +111,45 @@ public class OrderClient extends MercadoPagoClient {
         result.setResponse(response);
 
         return result;
-
     }
 
+    /**
+     * Method responsible for process an order by ID
+     *
+     * @param id orderId
+     * @return order response
+     * @throws MPException an error if the request fails
+     * @throws MPApiException an error if the request fails
+     */
+    public Order process(String id) throws MPException, MPApiException {
+        return this.process(id, null);
+    }
+
+    /**
+     * Method responsible for process an order by ID with request options
+     *
+     * @param id orderId
+     * @param requestOptions metadata to customize the request
+     * @return order response
+     * @throws MPException an error if the request fails
+     * @throws MPApiException an error if the request fails
+     */
+    public Order process(String id, MPRequestOptions requestOptions) throws MPException, MPApiException {
+        LOGGER.info("Sending order process request");
+
+        if (id == null || id.isEmpty()) {
+            throw new IllegalArgumentException("Order id cannot be null or empty");
+        }
+
+        String processUrl = String.format(URL_PROCESS, id);
+
+        MPResponse response = send(processUrl, HttpMethod.POST, null, null, requestOptions);
+
+        Order result = Serializer.deserializeFromJson(Order.class, response.getContent());
+        result.setResponse(response);
+
+        return result;
+    }
 
     /**
      * Method responsible for delete an order
@@ -138,10 +175,6 @@ public class OrderClient extends MercadoPagoClient {
      */
     public Order delete(String idOrder, String idTransaction, MPRequestOptions requestOptions) throws MPException, MPApiException {
         LOGGER.info("Sending order to delete");
-
-        if (idOrder == null || idTransaction == null || idOrder.isEmpty() || idTransaction.isEmpty()) {
-            throw new IllegalArgumentException("Order id cannot be null or empty");
-        }
 
         String deleteUrl = String.format(URL_WITH_ID, idOrder) + "/transactions/" + idTransaction;
 
