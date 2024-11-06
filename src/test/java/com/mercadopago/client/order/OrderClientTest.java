@@ -79,7 +79,6 @@ class OrderClientTest extends BaseClientTest {
 
         Assertions.assertNotNull(order);
         Assertions.assertEquals(orderId, order.getId());
-
     }
 
     @Test
@@ -115,6 +114,7 @@ class OrderClientTest extends BaseClientTest {
 
         Assertions.assertEquals("Order id cannot be null or empty", exception.getMessage());
     }
+
 
     @Test
     void deleteSuccess() throws MPException, MPApiException, IOException {
