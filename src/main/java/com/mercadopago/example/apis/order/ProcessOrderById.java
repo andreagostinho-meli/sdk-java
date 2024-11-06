@@ -1,4 +1,3 @@
-@ -0,0 +1,34 @@
 package com.mercadopago.example.apis.order;
 
 import com.mercadopago.MercadoPagoConfig;

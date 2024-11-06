@@ -11,6 +11,7 @@ import com.mercadopago.net.MPRequest;
 import com.mercadopago.net.MPResponse;
 import com.mercadopago.resources.order.Order;
 import com.mercadopago.serialization.Serializer;
+import org.apache.commons.lang.StringUtils;
 
 import java.util.logging.Logger;
 import java.util.logging.StreamHandler;
@@ -103,7 +104,7 @@ public class OrderClient extends MercadoPagoClient {
      */
     public Order get(String id, MPRequestOptions requestOptions) throws MPException, MPApiException {
         LOGGER.info("Sending order get request");
-        
+
         if (StringUtils.isBlank(id)) {
             throw new IllegalArgumentException("Order id cannot be null or empty");
         }
@@ -149,7 +150,7 @@ public class OrderClient extends MercadoPagoClient {
 
         MPResponse response = send(url, HttpMethod.POST, null, null, requestOptions);
 
-        Order result = Serializer.deserializeFromJson(Order.class, response.getContent());
+        Order order = Serializer.deserializeFromJson(Order.class, response.getContent());
         order.setResponse(response);
 
         return order;

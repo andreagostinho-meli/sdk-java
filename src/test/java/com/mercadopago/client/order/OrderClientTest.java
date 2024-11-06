@@ -82,7 +82,7 @@ class OrderClientTest extends BaseClientTest {
     }
 
     @Test
-    void processSucess() throws MPException, MPApiException, IOException {
+    void processSuccess() throws MPException, MPApiException, IOException {
         HttpResponse response = MockHelper.generateHttpResponseFromFile(CREATE_ORDER_RESPONSE_FILE, HttpStatus.OK);
         Mockito.doReturn(response).when(HTTP_CLIENT).execute(any(HttpRequestBase.class), any(HttpContext.class));
 
@@ -114,7 +114,6 @@ class OrderClientTest extends BaseClientTest {
 
         Assertions.assertEquals("Order id cannot be null or empty", exception.getMessage());
     }
-
 
     @Test
     void deleteSuccess() throws MPException, MPApiException, IOException {
