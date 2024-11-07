@@ -150,14 +150,13 @@ public class OrderClient extends MercadoPagoClient {
         }
 
         String url = String.format(URL_PROCESS, id);
-
         MPResponse response = send(url, HttpMethod.POST, null, null, requestOptions);
 
         Order order = Serializer.deserializeFromJson(Order.class, response.getContent());
         order.setResponse(response);
-
         return order;
     }
+
 
      /**
      * Method responsible for creating order with request options
@@ -187,7 +186,7 @@ public class OrderClient extends MercadoPagoClient {
         return order;
     }
 
-    /**
+     /**
      * Method responsible for creating a transaction for an order
      *
      * @param orderId The ID of the order for which the transaction is created
@@ -235,4 +234,6 @@ public class OrderClient extends MercadoPagoClient {
         
         return order;
     }
+
+   
 }
