@@ -145,7 +145,6 @@ class OrderClientTest extends BaseClientTest {
                 .payments(Collections.singletonList(paymentRequest))
                 .build();
 
-
         OrderTransaction orderTransaction = client.createTransaction(orderId, request);
 
         Assertions.assertNotNull(orderTransaction);
