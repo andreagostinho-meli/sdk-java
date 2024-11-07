@@ -203,32 +203,30 @@ public class OrderClient extends MercadoPagoClient {
     /**
      * Method responsible for cancel an order without request options
      *
-     * @param idOrder orderId
-     * @param idTransaction transactionId
+     * @param orderId orderId
      * @return order response
      * @throws MPException an error if the request fails
      * @throws MPApiException an error if the request fails
      */
-    public Order cancel(String idOrder) throws MPException, MPApiException {
-        return this.cancel(idOrder, null);
+    public Order cancel(String orderId) throws MPException, MPApiException {
+        return this.cancel(orderId, null);
     }
 
     /**
      * Method responsible for canceling an order by ID with request options
      *
-     * @param idOrder orderId
      * @return order response
      * @throws MPException an error if the request fails
      * @throws MPApiException an error if the request fails
      */
-    public Order cancel(String idOrder, MPRequestOptions requestOptions) throws MPException, MPApiException {
+    public Order cancel(String orderId, MPRequestOptions requestOptions) throws MPException, MPApiException {
         LOGGER.info("Sending order to delete");
 
-        if (StringUtils.isBlank(idOrder)) {
+        if (StringUtils.isBlank(orderId)) {
             throw new IllegalArgumentException("Order id cannot be null or empty");
         }
-        String url = String.format(URL_WITH_ID, idOrder);
-        MPResponse response = send(url, HttpMethod.DELETE, null, null, requestOptions);
+        String url = String.format(URL_WITH_ID, orderId)+ "/cancel";
+        MPResponse response = send(url, HttpMethod.POST, null, null, requestOptions);
         
         Order order = Serializer.deserializeFromJson(Order.class, response.getContent());
         order.setResponse(response);

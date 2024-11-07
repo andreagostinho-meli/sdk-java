@@ -157,8 +157,7 @@ class OrderClientTest extends BaseClientTest {
         Mockito.doReturn(response).when(HTTP_CLIENT).execute(any(HttpRequestBase.class), any(HttpContext.class));
 
         String orderId = "123";
-        String transactionId = "456";
-        Order order = client.delete(orderId, transactionId);
+        Order order = client.cancel(orderId);
 
         Assertions.assertNotNull(order);
         Assertions.assertEquals(orderId, order.getId());

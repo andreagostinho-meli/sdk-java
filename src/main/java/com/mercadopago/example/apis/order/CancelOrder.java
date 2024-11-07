@@ -10,7 +10,7 @@ import com.mercadopago.resources.order.Order;
 import java.util.HashMap;
 import java.util.Map;
 
-public class DeleteOrder {
+public class CancelOrder {
 
     public static void main(String[] args) {
         MercadoPagoConfig.setAccessToken("{{ACCESS_TOKEN}}");
@@ -19,15 +19,16 @@ public class DeleteOrder {
 
         Map<String, String> headers =  new HashMap<>();
         headers.put("X-Sandbox", "true");
+
         MPRequestOptions requestOptions = MPRequestOptions.builder()
                 .customHeaders(headers)
                 .build();
 
         try {
-            Order order = client.delete("{{ORDER_ID}}", "{{TRANSACTION_ID}}", requestOptions);
-            System.out.println("Deleted order: " + order.getId());
+            Order order = client.cancel("{{ORDER_ID}}", requestOptions);
+            System.out.println("Canceled order: " + order.getId());
         } catch (MPException | MPApiException e) {
-            System.out.println("Error deleting order: " + e.getMessage());
+            System.out.println("Error canceling order: " + e.getMessage());
         }
 
     }
