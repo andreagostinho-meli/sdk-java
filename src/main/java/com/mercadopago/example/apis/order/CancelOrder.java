@@ -13,22 +13,27 @@ import java.util.Map;
 public class CancelOrder {
 
     public static void main(String[] args) {
-        MercadoPagoConfig.setAccessToken("{{ACCESS_TOKEN}}");
+        MercadoPagoConfig.setAccessToken("{{TOKEN}}}}");
 
         OrderClient client = new OrderClient();
 
         Map<String, String> headers =  new HashMap<>();
         headers.put("X-Sandbox", "true");
+        headers.put("X-Idempotency-Key", "123456");
+        headers.put("X-Caller-SiteID", "MLB");
+
 
         MPRequestOptions requestOptions = MPRequestOptions.builder()
                 .customHeaders(headers)
                 .build();
 
         try {
-            Order order = client.cancel("{{ORDER_ID}}", requestOptions);
+            Order order = client.cancel("{{ORDERID}}", requestOptions);
             System.out.println("Canceled order: " + order.getId());
+            System.out.println("Status: " + order.getStatus());
         } catch (MPException | MPApiException e) {
             System.out.println("Error canceling order: " + e.getMessage());
+            System.out.println("Cause: " + e.getCause());
         }
 
     }
