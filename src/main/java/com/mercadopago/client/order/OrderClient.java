@@ -10,6 +10,7 @@ import com.mercadopago.net.MPHttpClient;
 import com.mercadopago.net.MPRequest;
 import com.mercadopago.net.MPResponse;
 import com.mercadopago.resources.order.Order;
+import com.mercadopago.resources.order.OrderTransaction;
 import com.mercadopago.serialization.Serializer;
 import org.apache.commons.lang.StringUtils;
 
@@ -24,6 +25,7 @@ public class OrderClient extends MercadoPagoClient {
 
     private static final String URL_WITH_ID = "/v1/orders/%s";
     private static final String URL_PROCESS = URL_WITH_ID + "/process";
+    private static final String URL_TRANSACTION = URL_WITH_ID + "/transactions";
 
     /** Default constructor. Uses the default http client used by the SDK. */
     public OrderClient() {
@@ -156,21 +158,50 @@ public class OrderClient extends MercadoPagoClient {
         return order;
     }
 
-    /**
-     * Method responsible for delete an order
+     /**
+     * Method responsible for creating order with request options
      *
-     * @param idOrder orderId
-     * @param idTransaction transactionId
-     * @return order response
+     * @param orderId The ID of the order for which the transaction is created
+     * @param request The request object containing transaction details
+     * @param requestOptions Metadata to customize the request
+     * @return The response for the order transaction
      * @throws MPException an error if the request fails
      * @throws MPApiException an error if the request fails
      */
-    public Order delete(String idOrder, String idTransaction ) throws MPException, MPApiException {
-        return this.process(idOrder);
+    public OrderTransaction createTransaction(String orderId, OrderTransactionRequest request,
+                                                     MPRequestOptions requestOptions) throws MPException, MPApiException {
+        LOGGER.info("Sending order transaction intent request");
+
+        MPRequest mpRequest = MPRequest.builder()
+                .uri(String.format(URL_TRANSACTION, orderId))
+                .method(HttpMethod.POST)
+                .payload(Serializer.serializeToJson(request))
+                .build();
+
+        MPResponse response = send(mpRequest, requestOptions);
+
+        OrderTransaction order = Serializer.deserializeFromJson(OrderTransaction.class, response.getContent());
+        order.setResponse(response);
+
+        return order;
     }
 
     /**
-     * Method responsible for deleting an order by ID
+     * Method responsible for creating a transaction for an order
+     *
+     * @param orderId The ID of the order for which the transaction is created
+     * @param request The request object containing transaction details
+     * @return The response for the order transaction
+     * @throws MPException an error if the request fails
+     * @throws MPApiException an error if the request fails
+     */
+    public OrderTransaction createTransaction(String orderId, OrderTransactionRequest request)
+            throws MPException, MPApiException {
+        return this.createTransaction(orderId, request, null);
+    }
+
+    /**
+     * Method responsible for cancel an order without request options
      *
      * @param idOrder orderId
      * @param idTransaction transactionId
@@ -178,14 +209,30 @@ public class OrderClient extends MercadoPagoClient {
      * @throws MPException an error if the request fails
      * @throws MPApiException an error if the request fails
      */
-    public Order delete(String idOrder, String idTransaction, MPRequestOptions requestOptions) throws MPException, MPApiException {
+    public Order cancel(String idOrder) throws MPException, MPApiException {
+        return this.cancel(idOrder, null);
+    }
+
+    /**
+     * Method responsible for canceling an order by ID with request options
+     *
+     * @param idOrder orderId
+     * @return order response
+     * @throws MPException an error if the request fails
+     * @throws MPApiException an error if the request fails
+     */
+    public Order cancel(String idOrder, MPRequestOptions requestOptions) throws MPException, MPApiException {
         LOGGER.info("Sending order to delete");
 
-        String deleteUrl = String.format(URL_WITH_ID, idOrder) + "/transactions/" + idTransaction;
-
-        MPResponse response = send(deleteUrl, HttpMethod.DELETE, null, null, requestOptions);
-        Order result = Serializer.deserializeFromJson(Order.class, response.getContent());
-        result.setResponse(response);
-        return result;
+        if (StringUtils.isBlank(idOrder)) {
+            throw new IllegalArgumentException("Order id cannot be null or empty");
+        }
+        String url = String.format(URL_WITH_ID, idOrder);
+        MPResponse response = send(url, HttpMethod.DELETE, null, null, requestOptions);
+        
+        Order order = Serializer.deserializeFromJson(Order.class, response.getContent());
+        order.setResponse(response);
+        
+        return order;
     }
 }
