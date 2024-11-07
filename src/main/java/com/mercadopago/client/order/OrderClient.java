@@ -26,6 +26,7 @@ public class OrderClient extends MercadoPagoClient {
     private static final String URL_WITH_ID = "/v1/orders/%s";
     private static final String URL_PROCESS = URL_WITH_ID + "/process";
     private static final String URL_TRANSACTION = URL_WITH_ID + "/transactions";
+    private static final String URL_CANCEL = URL_WITH_ID + "/cancel";
 
     /** Default constructor. Uses the default http client used by the SDK. */
     public OrderClient() {
@@ -225,7 +226,8 @@ public class OrderClient extends MercadoPagoClient {
         if (StringUtils.isBlank(orderId)) {
             throw new IllegalArgumentException("Order id cannot be null or empty");
         }
-        String url = String.format(URL_WITH_ID, orderId)+ "/cancel";
+
+        String url = String.format(URL_CANCEL, orderId);
         MPResponse response = send(url, HttpMethod.POST, null, null, requestOptions);
         
         Order order = Serializer.deserializeFromJson(Order.class, response.getContent());
