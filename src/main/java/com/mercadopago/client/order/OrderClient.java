@@ -235,5 +235,51 @@ public class OrderClient extends MercadoPagoClient {
         return order;
     }
 
-   
+    /**
+     * Method responsible for deleting a transaction from the Order
+     *
+     * @param orderId The ID of the order for which the transaction is created
+     * @param transactionId The ID of the transaction to be retrieved
+     * @param requestOptions Metadata to customize the request
+     * @return The response for the action
+     * @throws MPException an error if the request fails
+     * @throws MPApiException an error if the request fails
+     */
+    public OrderTransaction deleteTransaction(String orderId, String transactionId, MPRequestOptions requestOptions)
+            throws MPException, MPApiException {
+        LOGGER.info("Sending order transaction delete request");
+
+        if (StringUtils.isBlank(orderId) || StringUtils.isBlank(transactionId)) {
+            throw new IllegalArgumentException("Order id and Transaction id cannot be null or empty");
+        }
+
+        String url = String.format(URL_TRANSACTION, orderId) + "/%s";
+        url = String.format(url, transactionId);
+        LOGGER.fine("Delete transaction URL: " + url);
+
+        MPResponse response = send(url, HttpMethod.DELETE, null, null, requestOptions);
+        if (response.getStatusCode() == HttpStatus.NO_CONTENT) {
+            return null;
+        }
+        try {
+            return Serializer.deserializeFromJson(OrderTransaction.class, response.getContent());
+        } catch (Exception e) {
+            LOGGER.severe("Failed to deserialize response: " + e.getMessage());
+            throw new MPApiException("Transaction not found", response);
+        }
+    }
+
+    /**
+     * Method responsible for deleting a transaction from the Order
+     *
+     * @param orderId The ID of the order for which the transaction is created
+     * @param transactionId The ID of the transaction to be retrieved
+     * @return The response for the action
+     * @throws MPException an error if the request fails
+     * @throws MPApiException an error if the request fails
+     */
+    public OrderTransaction deleteTransaction(String orderId, String transactionId)
+            throws MPException, MPApiException {
+        return this.deleteTransaction(orderId, transactionId, null);
+    }
 }
