@@ -7,6 +7,7 @@ import com.mercadopago.helper.MockHelper;
 import com.mercadopago.net.HttpStatus;
 import com.mercadopago.resources.order.Order;
 import com.mercadopago.resources.order.OrderTransaction;
+import com.mercadopago.resources.order.OrderTransaction;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpRequestBase;
 import org.apache.http.protocol.HttpContext;
@@ -16,6 +17,7 @@ import org.mockito.Mockito;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Collections;
 import java.util.List;
 
@@ -85,7 +87,7 @@ class OrderClientTest extends BaseClientTest {
     }
 
     @Test
-    void processSucess() throws MPException, MPApiException, IOException {
+    void processSuccess() throws MPException, MPApiException, IOException {
         HttpResponse response = MockHelper.generateHttpResponseFromFile(CREATE_ORDER_RESPONSE_FILE, HttpStatus.OK);
         Mockito.doReturn(response).when(HTTP_CLIENT).execute(any(HttpRequestBase.class), any(HttpContext.class));
 
@@ -142,12 +144,23 @@ class OrderClientTest extends BaseClientTest {
                 .payments(Collections.singletonList(paymentRequest))
                 .build();
 
-
         OrderTransaction orderTransaction = client.createTransaction(orderId, request);
 
         Assertions.assertNotNull(orderTransaction);
         Assertions.assertEquals("100.00", orderTransaction.getPayments().get(0).getAmount());
         Assertions.assertEquals("BRL", orderTransaction.getPayments().get(0).getCurrency());
         Assertions.assertEquals("master", orderTransaction.getPayments().get(0).getPaymentMethod().getId());
+    }
+
+    @Test
+    void deleteSuccess() throws MPException, MPApiException, IOException {
+        HttpResponse response = MockHelper.generateHttpResponseFromFile(CREATE_ORDER_RESPONSE_FILE, HttpStatus.OK);
+        Mockito.doReturn(response).when(HTTP_CLIENT).execute(any(HttpRequestBase.class), any(HttpContext.class));
+
+        String orderId = "123";
+        Order order = client.cancel(orderId);
+
+        Assertions.assertNotNull(order);
+        Assertions.assertEquals(orderId, order.getId());
     }
 }
