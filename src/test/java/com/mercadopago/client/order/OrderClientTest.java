@@ -28,7 +28,6 @@ class OrderClientTest extends BaseClientTest {
     //File Mock Responses
     private static final String CREATE_ORDER_RESPONSE_FILE = "order/create_order_response.json";
     private static final String CREATE_TRANSACTION_RESPONSE_FILE = "order/create_transaction_response.json";
-    private static final String CREATE_TRANSACTION_RESPONSE_FILE = "order/create_transaction_response.json";
 
     private final OrderClient client = new OrderClient();
 
