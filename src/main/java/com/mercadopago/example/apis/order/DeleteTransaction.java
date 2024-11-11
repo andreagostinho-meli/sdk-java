@@ -5,9 +5,6 @@ import com.mercadopago.client.order.OrderClient;
 import com.mercadopago.core.MPRequestOptions;
 import com.mercadopago.exceptions.MPApiException;
 import com.mercadopago.exceptions.MPException;
-import com.mercadopago.net.MPResponse;
-import com.mercadopago.resources.order.Order;
-import com.mercadopago.resources.order.OrderTransaction;
 
 import java.util.HashMap;
 import java.util.Map;

@@ -26,7 +26,6 @@ class OrderClientTest extends BaseClientTest {
     //File Mock Responses
     private static final String CREATE_ORDER_RESPONSE_FILE = "order/create_order_response.json";
     private static final String CREATE_TRANSACTION_RESPONSE_FILE = "order/create_transaction_response.json";
-    private static final String DELETE_TRANSACTION_SUCCESS_RESPONSE_FILE = "order/delete_transaction_response.json";
 
     private final OrderClient client = new OrderClient();
 
@@ -165,7 +164,7 @@ class OrderClientTest extends BaseClientTest {
 
     @Test
     void deleteTransactionSuccessWithValidIds() throws MPException, MPApiException, IOException {
-        HttpResponse response = MockHelper.generateHttpResponseFromFile(DELETE_TRANSACTION_SUCCESS_RESPONSE_FILE, HttpStatus.NO_CONTENT);
+        HttpResponse response = MockHelper.generateHttpResponseFromFile(HttpStatus.NO_CONTENT);
         Mockito.doReturn(response).when(HTTP_CLIENT).execute(any(HttpRequestBase.class), any(HttpContext.class));
 
         String orderId = "01JC44RHN3TD6BHGH89A011FW3";
