@@ -24,6 +24,7 @@ public class OrderClient extends MercadoPagoClient {
     private static final String URL_PROCESS = URL_WITH_ID + "/process";
     private static final String URL_TRANSACTION = URL_WITH_ID + "/transactions";
     private static final String URL_CANCEL = URL_WITH_ID + "/cancel";
+    private static final String URL_TRANSACTION_WITH_ID = URL_WITH_ID + "/transactions/%s";
 
     /** Default constructor. Uses the default http client used by the SDK. */
     public OrderClient() {
@@ -250,8 +251,8 @@ public class OrderClient extends MercadoPagoClient {
             throw new IllegalArgumentException("Order id and Transaction id cannot be null or empty");
         }
 
-        String url = String.format(URL_TRANSACTION, orderId) + "/%s";
-        url = String.format(url, transactionId);
+        String url = String.format(URL_TRANSACTION_WITH_ID, orderId, transactionId);
+        url = String.format(url, orderId, transactionId);
         LOGGER.fine("Delete transaction URL: " + url);
 
         MPResponse response = send(url, HttpMethod.DELETE, null, null, requestOptions);
