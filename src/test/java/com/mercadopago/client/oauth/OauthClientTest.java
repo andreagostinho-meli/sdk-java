@@ -44,7 +44,7 @@ public class OauthClientTest extends BaseClientTest {
   public void getAuthorizationURLSuccess()
       throws IOException, MPException, MPApiException, URISyntaxException {
     userHttpResponse =
-        MockHelper.generateHttpResponse("/user/user_base.json", HttpStatus.OK);
+        MockHelper.generateHttpResponseFromFile("/user/user_base.json", HttpStatus.OK);
 
     doReturn(userHttpResponse)
         .when(HTTP_CLIENT)
@@ -69,7 +69,7 @@ public class OauthClientTest extends BaseClientTest {
   public void getAuthorizationURLWithRequestOptionsSuccess()
       throws MPException, MPApiException, IOException, URISyntaxException {
     userHttpResponse =
-        MockHelper.generateHttpResponse("/user/user_base.json", HttpStatus.OK);
+        MockHelper.generateHttpResponseFromFile("/user/user_base.json", HttpStatus.OK);
 
     doReturn(userHttpResponse)
         .when(HTTP_CLIENT)
@@ -94,7 +94,7 @@ public class OauthClientTest extends BaseClientTest {
   @Test
   public void createCredentialSuccess() throws IOException, MPException, MPApiException {
     oauthHttpResponse =
-        MockHelper.generateHttpResponse("/oauth/oauth_credential.json", HttpStatus.OK);
+        MockHelper.generateHttpResponseFromFile("/oauth/oauth_credential.json", HttpStatus.OK);
     oauthHttpResponse.setHeader(HttpHeaders.CONTENT_TYPE, APPLICATION_JSON);
 
     doReturn(oauthHttpResponse)
@@ -110,7 +110,7 @@ public class OauthClientTest extends BaseClientTest {
   public void createCredentialWithRequestOptionsSuccess()
       throws MPException, MPApiException, IOException {
     oauthHttpResponse =
-        MockHelper.generateHttpResponse("/oauth/oauth_credential.json", HttpStatus.OK);
+        MockHelper.generateHttpResponseFromFile("/oauth/oauth_credential.json", HttpStatus.OK);
     oauthHttpResponse.setHeader(HttpHeaders.CONTENT_TYPE, APPLICATION_JSON);
 
     MPRequestOptions requestOptions =
@@ -133,7 +133,7 @@ public class OauthClientTest extends BaseClientTest {
   @Test
   public void refreshCredentialSuccess() throws IOException, MPException, MPApiException {
     oauthHttpResponse =
-        MockHelper.generateHttpResponse("/oauth/oauth_refresh_token.json", HttpStatus.OK);
+        MockHelper.generateHttpResponseFromFile("/oauth/oauth_refresh_token.json", HttpStatus.OK);
     oauthHttpResponse.setHeader(HttpHeaders.CONTENT_TYPE, APPLICATION_JSON);
 
     doReturn(oauthHttpResponse)
@@ -147,7 +147,7 @@ public class OauthClientTest extends BaseClientTest {
   public void refreshCredentialWithRequestOptionsSuccess()
       throws MPException, MPApiException, IOException {
     oauthHttpResponse =
-        MockHelper.generateHttpResponse("/oauth/oauth_refresh_token.json", HttpStatus.OK);
+        MockHelper.generateHttpResponseFromFile("/oauth/oauth_refresh_token.json", HttpStatus.OK);
     oauthHttpResponse.setHeader(HttpHeaders.CONTENT_TYPE, APPLICATION_JSON);
 
     MPRequestOptions requestOptions =

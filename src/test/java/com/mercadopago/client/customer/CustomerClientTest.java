@@ -40,7 +40,7 @@ public class CustomerClientTest extends BaseClientTest {
   @Test
   public void getSuccess() throws MPException, MPApiException, ParseException, IOException {
     HttpResponse httpResponse =
-        MockHelper.generateHttpResponse("/customer/customer_base.json", HttpStatus.OK);
+        MockHelper.generateHttpResponseFromFile("/customer/customer_base.json", HttpStatus.OK);
     httpResponse.setHeader(HttpHeaders.CONTENT_TYPE, APPLICATION_JSON);
 
     doReturn(httpResponse)
@@ -56,7 +56,7 @@ public class CustomerClientTest extends BaseClientTest {
   public void getWithRequestOptionsSuccess()
       throws MPException, MPApiException, ParseException, IOException {
     HttpResponse httpResponse =
-        MockHelper.generateHttpResponse("/customer/customer_base.json", HttpStatus.OK);
+        MockHelper.generateHttpResponseFromFile("/customer/customer_base.json", HttpStatus.OK);
     httpResponse.setHeader(HttpHeaders.CONTENT_TYPE, APPLICATION_JSON);
 
     doReturn(httpResponse)
@@ -71,7 +71,7 @@ public class CustomerClientTest extends BaseClientTest {
   @Test
   public void createSuccess() throws MPException, MPApiException, ParseException, IOException {
     HttpResponse httpResponse =
-        MockHelper.generateHttpResponse("/customer/customer_base.json", HttpStatus.OK);
+        MockHelper.generateHttpResponseFromFile("/customer/customer_base.json", HttpStatus.OK);
     httpResponse.setHeader(HttpHeaders.CONTENT_TYPE, APPLICATION_JSON);
 
     doReturn(httpResponse)
@@ -88,7 +88,7 @@ public class CustomerClientTest extends BaseClientTest {
       throws MPException, MPApiException, ParseException, IOException {
 
     HttpResponse httpResponse =
-        MockHelper.generateHttpResponse("/customer/customer_base.json", HttpStatus.OK);
+        MockHelper.generateHttpResponseFromFile("/customer/customer_base.json", HttpStatus.OK);
     httpResponse.setHeader(HttpHeaders.CONTENT_TYPE, APPLICATION_JSON);
 
     doReturn(httpResponse)
@@ -103,7 +103,7 @@ public class CustomerClientTest extends BaseClientTest {
   @Test
   public void updateSuccess() throws MPException, MPApiException, IOException {
     HttpResponse httpResponse =
-        MockHelper.generateHttpResponse("/customer/customer_base.json", HttpStatus.OK);
+        MockHelper.generateHttpResponseFromFile("/customer/customer_base.json", HttpStatus.OK);
     httpResponse.setHeader(HttpHeaders.CONTENT_TYPE, APPLICATION_JSON);
 
     doReturn(httpResponse)
@@ -118,7 +118,7 @@ public class CustomerClientTest extends BaseClientTest {
   @Test
   public void updateWithRequestOptionsSuccess() throws MPException, MPApiException, IOException {
     HttpResponse httpResponse =
-        MockHelper.generateHttpResponse("/customer/customer_base.json", HttpStatus.OK);
+        MockHelper.generateHttpResponseFromFile("/customer/customer_base.json", HttpStatus.OK);
     httpResponse.setHeader(HttpHeaders.CONTENT_TYPE, APPLICATION_JSON);
 
     doReturn(httpResponse)
@@ -134,7 +134,7 @@ public class CustomerClientTest extends BaseClientTest {
   @Test
   public void deleteSuccess() throws MPException, MPApiException, IOException {
     HttpResponse httpResponse =
-        MockHelper.generateHttpResponse("/customer/customer_base.json", HttpStatus.OK);
+        MockHelper.generateHttpResponseFromFile("/customer/customer_base.json", HttpStatus.OK);
     httpResponse.setHeader(HttpHeaders.CONTENT_TYPE, APPLICATION_JSON);
 
     doReturn(httpResponse)
@@ -150,7 +150,7 @@ public class CustomerClientTest extends BaseClientTest {
   public void deleteWithRequestOptionsSuccess() throws MPException, MPApiException, IOException {
 
     HttpResponse httpResponse =
-        MockHelper.generateHttpResponse("/customer/customer_base.json", HttpStatus.OK);
+        MockHelper.generateHttpResponseFromFile("/customer/customer_base.json", HttpStatus.OK);
     httpResponse.setHeader(HttpHeaders.CONTENT_TYPE, APPLICATION_JSON);
 
     doReturn(httpResponse)
@@ -170,7 +170,7 @@ public class CustomerClientTest extends BaseClientTest {
     MPSearchRequest searchRequest =
         MPSearchRequest.builder().limit(0).offset(0).filters(filters).build();
     HttpResponse httpResponse =
-        MockHelper.generateHttpResponse("/customer/search_by_email.json", HttpStatus.OK);
+        MockHelper.generateHttpResponseFromFile("/customer/search_by_email.json", HttpStatus.OK);
 
     doReturn(httpResponse)
         .when(HTTP_CLIENT)
@@ -191,7 +191,7 @@ public class CustomerClientTest extends BaseClientTest {
     Map<String, Object> filters = new HashMap<>();
     filters.put("email", "test@user.com");
     HttpResponse httpResponse =
-        MockHelper.generateHttpResponse("/customer/search_by_email.json", HttpStatus.OK);
+        MockHelper.generateHttpResponseFromFile("/customer/search_by_email.json", HttpStatus.OK);
     MPSearchRequest searchRequest =
         MPSearchRequest.builder().limit(0).offset(0).filters(filters).build();
 
@@ -212,7 +212,7 @@ public class CustomerClientTest extends BaseClientTest {
   @Test
   public void getCardSuccess() throws IOException, MPException, MPApiException {
     HttpResponse httpResponse =
-        MockHelper.generateHttpResponse("/card/card_single.json", HttpStatus.OK);
+        MockHelper.generateHttpResponseFromFile("/card/card_single.json", HttpStatus.OK);
 
     doReturn(httpResponse)
         .when(HTTP_CLIENT)
@@ -226,7 +226,7 @@ public class CustomerClientTest extends BaseClientTest {
   @Test
   public void getCardWithRequestOptionsSuccess() throws IOException, MPException, MPApiException {
     HttpResponse httpResponse =
-        MockHelper.generateHttpResponse("/card/card_single.json", HttpStatus.OK);
+        MockHelper.generateHttpResponseFromFile("/card/card_single.json", HttpStatus.OK);
 
     doReturn(httpResponse)
         .when(HTTP_CLIENT)
@@ -241,7 +241,7 @@ public class CustomerClientTest extends BaseClientTest {
   @Test
   public void createCardSuccess() throws IOException, MPException, MPApiException {
     HttpResponse httpResponse =
-        MockHelper.generateHttpResponse("/card/card_single.json", HttpStatus.OK);
+        MockHelper.generateHttpResponseFromFile("/card/card_single.json", HttpStatus.OK);
 
     doReturn(httpResponse)
         .when(HTTP_CLIENT)
@@ -257,7 +257,7 @@ public class CustomerClientTest extends BaseClientTest {
   public void createCardWithRequestOptionsSuccess()
       throws IOException, MPException, MPApiException {
     HttpResponse httpResponse =
-        MockHelper.generateHttpResponse("/card/card_single.json", HttpStatus.OK);
+        MockHelper.generateHttpResponseFromFile("/card/card_single.json", HttpStatus.OK);
 
     doReturn(httpResponse)
         .when(HTTP_CLIENT)
@@ -273,7 +273,7 @@ public class CustomerClientTest extends BaseClientTest {
   @Test
   public void deleteCardSuccess() throws IOException, MPException, MPApiException {
     HttpResponse httpResponse =
-        MockHelper.generateHttpResponse("/card/card_single.json", HttpStatus.OK);
+        MockHelper.generateHttpResponseFromFile("/card/card_single.json", HttpStatus.OK);
 
     doReturn(httpResponse)
         .when(HTTP_CLIENT)
@@ -288,7 +288,7 @@ public class CustomerClientTest extends BaseClientTest {
   public void deleteCardWithRequestOptionsSuccess()
       throws IOException, MPException, MPApiException {
     HttpResponse httpResponse =
-        MockHelper.generateHttpResponse("/card/card_single.json", HttpStatus.OK);
+        MockHelper.generateHttpResponseFromFile("/card/card_single.json", HttpStatus.OK);
 
     doReturn(httpResponse)
         .when(HTTP_CLIENT)
@@ -304,7 +304,7 @@ public class CustomerClientTest extends BaseClientTest {
   @Test
   public void listCardsSuccess() throws IOException, MPException, MPApiException {
     HttpResponse httpResponse =
-        MockHelper.generateHttpResponse("/card/card_all.json", HttpStatus.OK);
+        MockHelper.generateHttpResponseFromFile("/card/card_all.json", HttpStatus.OK);
 
     doReturn(httpResponse)
         .when(HTTP_CLIENT)
@@ -320,7 +320,7 @@ public class CustomerClientTest extends BaseClientTest {
   @Test
   public void listCardsWithRequestOptionsSuccess() throws IOException, MPException, MPApiException {
     HttpResponse httpResponse =
-        MockHelper.generateHttpResponse("/card/card_all.json", HttpStatus.OK);
+        MockHelper.generateHttpResponseFromFile("/card/card_all.json", HttpStatus.OK);
     doReturn(httpResponse)
         .when(HTTP_CLIENT)
         .execute(any(HttpRequestBase.class), any(HttpContext.class));

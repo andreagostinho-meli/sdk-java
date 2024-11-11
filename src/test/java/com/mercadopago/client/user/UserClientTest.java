@@ -23,7 +23,7 @@ class UserClientTest extends BaseClientTest {
   @Test
   void getUserSuccess() throws IOException, MPException, MPApiException {
     HttpResponse httpResponse =
-        MockHelper.generateHttpResponse("/user/user_base.json", HttpStatus.OK);
+        MockHelper.generateHttpResponseFromFile("/user/user_base.json", HttpStatus.OK);
     httpResponse.setHeader(HttpHeaders.CONTENT_TYPE, APPLICATION_JSON);
     doReturn(httpResponse)
         .when(HTTP_CLIENT)
@@ -37,7 +37,7 @@ class UserClientTest extends BaseClientTest {
   @Test
   void getUserWithOptionsSuccess() throws MPException, MPApiException, IOException {
     HttpResponse httpResponse =
-        MockHelper.generateHttpResponse("/user/user_base.json", HttpStatus.OK);
+        MockHelper.generateHttpResponseFromFile("/user/user_base.json", HttpStatus.OK);
     httpResponse.setHeader(HttpHeaders.CONTENT_TYPE, APPLICATION_JSON);
 
     doReturn(httpResponse)

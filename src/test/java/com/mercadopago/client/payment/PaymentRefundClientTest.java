@@ -1,6 +1,6 @@
 package com.mercadopago.client.payment;
 
-import static com.mercadopago.helper.MockHelper.generateHttpResponse;
+import static com.mercadopago.helper.MockHelper.generateHttpResponseFromFile;
 import static com.mercadopago.helper.MockHelper.generateJsonElement;
 import static com.mercadopago.helper.MockHelper.generateJsonElementFromUriRequest;
 import static com.mercadopago.net.HttpStatus.CREATED;
@@ -15,6 +15,7 @@ import com.google.gson.JsonElement;
 import com.mercadopago.BaseClientTest;
 import com.mercadopago.exceptions.MPApiException;
 import com.mercadopago.exceptions.MPException;
+import com.mercadopago.helper.MockHelper;
 import com.mercadopago.net.MPResourceList;
 import com.mercadopago.resources.payment.PaymentRefund;
 import java.io.IOException;
@@ -43,7 +44,7 @@ class PaymentRefundClientTest extends BaseClientTest {
 
   @Test
   void refundSuccess() throws IOException, MPException, MPApiException {
-    HttpResponse httpResponse = generateHttpResponse(refundBaseJson, CREATED);
+    HttpResponse httpResponse = MockHelper.generateHttpResponseFromFile(refundBaseJson, CREATED);
     doReturn(httpResponse)
         .when(HTTP_CLIENT)
         .execute(any(HttpRequestBase.class), any(HttpContext.class));
@@ -55,7 +56,7 @@ class PaymentRefundClientTest extends BaseClientTest {
 
   @Test
   public void refundWithRequestOptionsSuccess() throws IOException, MPException, MPApiException {
-    HttpResponse httpResponse = generateHttpResponse(refundBaseJson, CREATED);
+    HttpResponse httpResponse = MockHelper.generateHttpResponseFromFile(refundBaseJson, CREATED);
     doReturn(httpResponse)
         .when(HTTP_CLIENT)
         .execute(any(HttpRequestBase.class), any(HttpContext.class));
@@ -67,7 +68,7 @@ class PaymentRefundClientTest extends BaseClientTest {
 
   @Test
   void refundPartialSuccess() throws IOException, MPException, MPApiException {
-    HttpResponse httpResponse = generateHttpResponse(refundBaseJson, CREATED);
+    HttpResponse httpResponse = MockHelper.generateHttpResponseFromFile(refundBaseJson, CREATED);
     doReturn(httpResponse)
         .when(HTTP_CLIENT)
         .execute(any(HttpRequestBase.class), any(HttpContext.class));
@@ -86,7 +87,7 @@ class PaymentRefundClientTest extends BaseClientTest {
   @Test
   public void refundPartialWithRequestOptionsSuccess()
       throws IOException, MPException, MPApiException {
-    HttpResponse httpResponse = generateHttpResponse(refundBaseJson, CREATED);
+    HttpResponse httpResponse = MockHelper.generateHttpResponseFromFile(refundBaseJson, CREATED);
     doReturn(httpResponse)
         .when(HTTP_CLIENT)
         .execute(any(HttpRequestBase.class), any(HttpContext.class));
@@ -104,7 +105,7 @@ class PaymentRefundClientTest extends BaseClientTest {
 
   @Test
   public void getRefundSuccess() throws IOException, MPException, MPApiException {
-    HttpResponse httpResponse = generateHttpResponse(refundBaseJson, OK);
+    HttpResponse httpResponse = MockHelper.generateHttpResponseFromFile(refundBaseJson, OK);
     doReturn(httpResponse)
         .when(HTTP_CLIENT)
         .execute(any(HttpRequestBase.class), any(HttpContext.class));
@@ -115,7 +116,7 @@ class PaymentRefundClientTest extends BaseClientTest {
 
   @Test
   public void getRefundWithRequestOptionsSuccess() throws IOException, MPException, MPApiException {
-    HttpResponse httpResponse = generateHttpResponse(refundBaseJson, OK);
+    HttpResponse httpResponse = MockHelper.generateHttpResponseFromFile(refundBaseJson, OK);
     doReturn(httpResponse)
         .when(HTTP_CLIENT)
         .execute(any(HttpRequestBase.class), any(HttpContext.class));
@@ -126,7 +127,7 @@ class PaymentRefundClientTest extends BaseClientTest {
 
   @Test
   public void listRefundsSuccess() throws IOException, MPException, MPApiException {
-    HttpResponse httpResponse = generateHttpResponse(refundListJson, OK);
+    HttpResponse httpResponse = MockHelper.generateHttpResponseFromFile(refundListJson, OK);
     doReturn(httpResponse)
         .when(HTTP_CLIENT)
         .execute(any(HttpRequestBase.class), any(HttpContext.class));
@@ -141,7 +142,7 @@ class PaymentRefundClientTest extends BaseClientTest {
   @Test
   public void listRefundsWithRequestOptionsSuccess()
       throws IOException, MPException, MPApiException {
-    HttpResponse httpResponse = generateHttpResponse(refundListJson, OK);
+    HttpResponse httpResponse = MockHelper.generateHttpResponseFromFile(refundListJson, OK);
     doReturn(httpResponse)
         .when(HTTP_CLIENT)
         .execute(any(HttpRequestBase.class), any(HttpContext.class));

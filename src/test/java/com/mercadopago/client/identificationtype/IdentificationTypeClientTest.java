@@ -1,6 +1,6 @@
 package com.mercadopago.client.identificationtype;
 
-import static com.mercadopago.helper.MockHelper.generateHttpResponse;
+import static com.mercadopago.helper.MockHelper.generateHttpResponseFromFile;
 import static com.mercadopago.net.HttpStatus.OK;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -11,6 +11,7 @@ import static org.mockito.Mockito.doReturn;
 import com.mercadopago.BaseClientTest;
 import com.mercadopago.exceptions.MPApiException;
 import com.mercadopago.exceptions.MPException;
+import com.mercadopago.helper.MockHelper;
 import com.mercadopago.net.MPResourceList;
 import com.mercadopago.resources.identificationtype.IdentificationType;
 import java.io.IOException;
@@ -26,7 +27,7 @@ class IdentificationTypeClientTest extends BaseClientTest {
 
   @Test
   void listSuccess() throws IOException, MPException, MPApiException {
-    HttpResponse httpResponse = generateHttpResponse(identificationTypesJson, OK);
+    HttpResponse httpResponse = MockHelper.generateHttpResponseFromFile(identificationTypesJson, OK);
     doReturn(httpResponse)
         .when(HTTP_CLIENT)
         .execute(any(HttpRequestBase.class), any(HttpContext.class));
@@ -39,7 +40,7 @@ class IdentificationTypeClientTest extends BaseClientTest {
 
   @Test
   void testListWithRequestOptionsSuccess() throws IOException, MPException, MPApiException {
-    HttpResponse httpResponse = generateHttpResponse(identificationTypesJson, OK);
+    HttpResponse httpResponse = MockHelper.generateHttpResponseFromFile(identificationTypesJson, OK);
     doReturn(httpResponse)
         .when(HTTP_CLIENT)
         .execute(any(HttpRequestBase.class), any(HttpContext.class));

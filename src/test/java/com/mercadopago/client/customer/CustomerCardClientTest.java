@@ -38,7 +38,7 @@ public class CustomerCardClientTest extends BaseClientTest {
   @Test
   public void getCardSuccess() throws IOException, MPException, MPApiException {
     HttpResponse httpResponse =
-        MockHelper.generateHttpResponse(responseFileSingleCard, HttpStatus.OK);
+        MockHelper.generateHttpResponseFromFile(responseFileSingleCard, HttpStatus.OK);
     httpResponse.setHeader(HttpHeaders.CONTENT_TYPE, APPLICATION_JSON);
 
     doReturn(httpResponse)
@@ -53,7 +53,7 @@ public class CustomerCardClientTest extends BaseClientTest {
   @Test
   public void getCardWithRequestOptionsSuccess() throws IOException, MPException, MPApiException {
     HttpResponse httpResponse =
-        MockHelper.generateHttpResponse(responseFileSingleCard, HttpStatus.OK);
+        MockHelper.generateHttpResponseFromFile(responseFileSingleCard, HttpStatus.OK);
     httpResponse.setHeader(HttpHeaders.CONTENT_TYPE, APPLICATION_JSON);
 
     doReturn(httpResponse)
@@ -68,7 +68,7 @@ public class CustomerCardClientTest extends BaseClientTest {
   @Test
   public void createCardSuccess() throws IOException, MPException, MPApiException {
     HttpResponse httpResponse =
-        MockHelper.generateHttpResponse(responseFileSingleCard, HttpStatus.OK);
+        MockHelper.generateHttpResponseFromFile(responseFileSingleCard, HttpStatus.OK);
     httpResponse.setHeader(HttpHeaders.CONTENT_TYPE, APPLICATION_JSON);
 
     doReturn(httpResponse)
@@ -84,7 +84,7 @@ public class CustomerCardClientTest extends BaseClientTest {
   public void createCardWithRequestOptionsSuccess()
       throws IOException, MPException, MPApiException {
     HttpResponse httpResponse =
-        MockHelper.generateHttpResponse(responseFileSingleCard, HttpStatus.OK);
+        MockHelper.generateHttpResponseFromFile(responseFileSingleCard, HttpStatus.OK);
     httpResponse.setHeader(HttpHeaders.CONTENT_TYPE, APPLICATION_JSON);
 
     doReturn(httpResponse)
@@ -100,7 +100,7 @@ public class CustomerCardClientTest extends BaseClientTest {
   @Test
   public void deleteCardSuccess() throws MPException, MPApiException, IOException {
     HttpResponse httpResponse =
-        MockHelper.generateHttpResponse(responseFileSingleCard, HttpStatus.OK);
+        MockHelper.generateHttpResponseFromFile(responseFileSingleCard, HttpStatus.OK);
     httpResponse.setHeader(HttpHeaders.CONTENT_TYPE, APPLICATION_JSON);
 
     doReturn(httpResponse)
@@ -116,7 +116,7 @@ public class CustomerCardClientTest extends BaseClientTest {
   public void deleteCardWithRequestOptionsSuccess()
       throws MPException, MPApiException, IOException {
     HttpResponse httpResponse =
-        MockHelper.generateHttpResponse(responseFileSingleCard, HttpStatus.OK);
+        MockHelper.generateHttpResponseFromFile(responseFileSingleCard, HttpStatus.OK);
     httpResponse.setHeader(HttpHeaders.CONTENT_TYPE, APPLICATION_JSON);
 
     doReturn(httpResponse)
@@ -131,7 +131,7 @@ public class CustomerCardClientTest extends BaseClientTest {
   @Test
   public void listAllCardsSuccess() throws IOException, MPException, MPApiException {
     HttpResponse httpResponse =
-        MockHelper.generateHttpResponse(responseFileAllCards, HttpStatus.OK);
+        MockHelper.generateHttpResponseFromFile(responseFileAllCards, HttpStatus.OK);
     httpResponse.setHeader(HttpHeaders.CONTENT_TYPE, APPLICATION_JSON);
 
     doReturn(httpResponse)
@@ -151,7 +151,7 @@ public class CustomerCardClientTest extends BaseClientTest {
   public void listAllCardsWithRequestOptionsSuccess()
       throws IOException, MPException, MPApiException {
     HttpResponse httpResponse =
-        MockHelper.generateHttpResponse(responseFileAllCards, HttpStatus.OK);
+        MockHelper.generateHttpResponseFromFile(responseFileAllCards, HttpStatus.OK);
     httpResponse.setHeader(HttpHeaders.CONTENT_TYPE, APPLICATION_JSON);
 
     doReturn(httpResponse)

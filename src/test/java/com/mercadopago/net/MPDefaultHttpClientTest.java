@@ -1,6 +1,6 @@
 package com.mercadopago.net;
 
-import static com.mercadopago.helper.MockHelper.generateHttpResponse;
+import static com.mercadopago.helper.MockHelper.generateHttpResponseFromFile;
 import static com.mercadopago.net.HttpStatus.INTERNAL_SERVER_ERROR;
 import static com.mercadopago.net.HttpStatus.OK;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -16,6 +16,8 @@ import com.mercadopago.exceptions.MPException;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+
+import com.mercadopago.helper.MockHelper;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpRequestBase;
 import org.apache.http.protocol.HttpContext;
@@ -40,7 +42,7 @@ class MPDefaultHttpClientTest extends BaseClientTest {
     MPRequest request =
         MPRequest.builder().method(HttpMethod.GET).uri("http://test.com").headers(headers).build();
 
-    HttpResponse httpResponse = generateHttpResponse(responseGenericSuccessJson, OK);
+    HttpResponse httpResponse = MockHelper.generateHttpResponseFromFile(responseGenericSuccessJson, OK);
     httpResponse.setHeader("x-test", "test");
     doReturn(httpResponse)
         .when(HTTP_CLIENT)
@@ -70,7 +72,7 @@ class MPDefaultHttpClientTest extends BaseClientTest {
             .connectionTimeout(customTimeout)
             .build();
 
-    HttpResponse httpResponse = generateHttpResponse(responseGenericSuccessJson, OK);
+    HttpResponse httpResponse = MockHelper.generateHttpResponseFromFile(responseGenericSuccessJson, OK);
     httpResponse.setHeader("x-test", "test");
     doReturn(httpResponse)
         .when(HTTP_CLIENT)
@@ -92,7 +94,7 @@ class MPDefaultHttpClientTest extends BaseClientTest {
     MPRequest request =
             MPRequest.builder().method(HttpMethod.GET).uri("http://test.com").headers(headers).build();
 
-    HttpResponse httpResponse = generateHttpResponse(responseGenericSuccessJson, OK);
+    HttpResponse httpResponse = MockHelper.generateHttpResponseFromFile(responseGenericSuccessJson, OK);
     httpResponse.setHeader("x-test", "test");
     doThrow(IOException.class)
             .when(HTTP_CLIENT)

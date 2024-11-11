@@ -36,7 +36,7 @@ public class CardTokenClientTest extends BaseClientTest {
   public void getCardTokenSuccess()
       throws IOException, MPException, MPApiException, ParseException {
     HttpResponse httpResponse =
-        MockHelper.generateHttpResponse(responseFileCardToken, HttpStatus.OK);
+        MockHelper.generateHttpResponseFromFile(responseFileCardToken, HttpStatus.OK);
     httpResponse.setHeader(HttpHeaders.CONTENT_TYPE, APPLICATION_JSON);
 
     doReturn(httpResponse)
@@ -59,7 +59,7 @@ public class CardTokenClientTest extends BaseClientTest {
             .socketTimeout(DEFAULT_TIMEOUT)
             .build();
     HttpResponse httpResponse =
-        MockHelper.generateHttpResponse(responseFileCardToken, HttpStatus.OK);
+        MockHelper.generateHttpResponseFromFile(responseFileCardToken, HttpStatus.OK);
     httpResponse.setHeader(HttpHeaders.CONTENT_TYPE, APPLICATION_JSON);
 
     doReturn(httpResponse)
@@ -75,7 +75,7 @@ public class CardTokenClientTest extends BaseClientTest {
   public void createCardTokenSuccess()
       throws IOException, MPException, MPApiException, ParseException {
     HttpResponse httpResponse =
-        MockHelper.generateHttpResponse(responseFileCardToken, HttpStatus.OK);
+        MockHelper.generateHttpResponseFromFile(responseFileCardToken, HttpStatus.OK);
     httpResponse.setHeader(HttpHeaders.CONTENT_TYPE, APPLICATION_JSON);
 
     doReturn(httpResponse)
@@ -98,7 +98,7 @@ public class CardTokenClientTest extends BaseClientTest {
             .socketTimeout(DEFAULT_TIMEOUT)
             .build();
     HttpResponse httpResponse =
-        MockHelper.generateHttpResponse(responseFileCardToken, HttpStatus.OK);
+        MockHelper.generateHttpResponseFromFile(responseFileCardToken, HttpStatus.OK);
     httpResponse.setHeader(HttpHeaders.CONTENT_TYPE, APPLICATION_JSON);
 
     doReturn(httpResponse)

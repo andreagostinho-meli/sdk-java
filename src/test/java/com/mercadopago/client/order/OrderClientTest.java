@@ -35,7 +35,7 @@ class OrderClientTest extends BaseClientTest {
         OrderCreateRequest request = getMinimumOrderCreateRequest();
 
         //Mock HttpClient
-        HttpResponse response = MockHelper.generateHttpResponse(CREATE_ORDER_RESPONSE_FILE, HttpStatus.CREATED);
+        HttpResponse response = MockHelper.generateHttpResponseFromFile(CREATE_ORDER_RESPONSE_FILE, HttpStatus.CREATED);
         Mockito.doReturn(response).when(HTTP_CLIENT).execute(any(HttpRequestBase.class), any(HttpContext.class));
 
         //when
@@ -74,7 +74,7 @@ class OrderClientTest extends BaseClientTest {
 
     @Test
     void getSuccess() throws MPException, MPApiException, IOException {
-        HttpResponse response = MockHelper.generateHttpResponse(CREATE_ORDER_RESPONSE_FILE, HttpStatus.OK);
+        HttpResponse response = MockHelper.generateHttpResponseFromFile(CREATE_ORDER_RESPONSE_FILE, HttpStatus.OK);
         Mockito.doReturn(response).when(HTTP_CLIENT).execute(any(HttpRequestBase.class), any(HttpContext.class));
 
         String orderId = "123";
@@ -86,7 +86,7 @@ class OrderClientTest extends BaseClientTest {
 
     @Test
     void processSuccess() throws MPException, MPApiException, IOException {
-        HttpResponse response = MockHelper.generateHttpResponse(CREATE_ORDER_RESPONSE_FILE, HttpStatus.OK);
+        HttpResponse response = MockHelper.generateHttpResponseFromFile(CREATE_ORDER_RESPONSE_FILE, HttpStatus.OK);
         Mockito.doReturn(response).when(HTTP_CLIENT).execute(any(HttpRequestBase.class), any(HttpContext.class));
 
         String orderId = "123";
@@ -120,7 +120,7 @@ class OrderClientTest extends BaseClientTest {
 
     @Test
     void createTransactionWithRequestOptionsSuccess() throws MPException, MPApiException, IOException {
-        HttpResponse response = MockHelper.generateHttpResponse(CREATE_TRANSACTION_RESPONSE_FILE, HttpStatus.OK);
+        HttpResponse response = MockHelper.generateHttpResponseFromFile(CREATE_TRANSACTION_RESPONSE_FILE, HttpStatus.OK);
 
         Mockito.doReturn(response).when(HTTP_CLIENT).execute(any(HttpRequestBase.class), any(HttpContext.class));
 
