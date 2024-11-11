@@ -255,15 +255,9 @@ public class OrderClient extends MercadoPagoClient {
         LOGGER.fine("Delete transaction URL: " + url);
 
         MPResponse response = send(url, HttpMethod.DELETE, null, null, requestOptions);
-        if (response.getStatusCode() == HttpStatus.NO_CONTENT) {
-            return null;
-        }
-        try {
-            return Serializer.deserializeFromJson(OrderTransaction.class, response.getContent());
-        } catch (Exception e) {
-            LOGGER.severe("Failed to deserialize response: " + e.getMessage());
-            throw new MPApiException("Transaction not found", response);
-        }
+        OrderTransaction order = new OrderTransaction();
+        order.setResponse(response);
+        return order;
     }
 
     /**

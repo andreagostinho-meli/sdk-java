@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import static org.junit.Assert.assertNotNull;
 import static org.mockito.Matchers.any;
 
 class OrderClientTest extends BaseClientTest {
@@ -172,6 +173,8 @@ class OrderClientTest extends BaseClientTest {
 
         OrderTransaction result = client.deleteTransaction(orderId, transactionId);
 
-        Assertions.assertNull(result);
+        Assertions.assertNotNull(result);
+        Assertions.assertNotNull(result.getResponse());
+        Assertions.assertEquals(HttpStatus.NO_CONTENT, result.getResponse().getStatusCode());
     }
 }
