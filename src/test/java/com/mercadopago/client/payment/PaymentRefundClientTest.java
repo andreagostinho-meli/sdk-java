@@ -1,6 +1,6 @@
 package com.mercadopago.client.payment;
 
-import static com.mercadopago.helper.MockHelper.generateHttpResponseFromFile;
+import static com.mercadopago.helper.MockHelper.generateHttpResponse;
 import static com.mercadopago.helper.MockHelper.generateJsonElement;
 import static com.mercadopago.helper.MockHelper.generateJsonElementFromUriRequest;
 import static com.mercadopago.net.HttpStatus.CREATED;
@@ -43,7 +43,7 @@ class PaymentRefundClientTest extends BaseClientTest {
 
   @Test
   void refundSuccess() throws IOException, MPException, MPApiException {
-    HttpResponse httpResponse = generateHttpResponseFromFile(refundBaseJson, CREATED);
+    HttpResponse httpResponse = generateHttpResponse(refundBaseJson, CREATED);
     doReturn(httpResponse)
         .when(HTTP_CLIENT)
         .execute(any(HttpRequestBase.class), any(HttpContext.class));
@@ -55,7 +55,7 @@ class PaymentRefundClientTest extends BaseClientTest {
 
   @Test
   public void refundWithRequestOptionsSuccess() throws IOException, MPException, MPApiException {
-    HttpResponse httpResponse = generateHttpResponseFromFile(refundBaseJson, CREATED);
+    HttpResponse httpResponse = generateHttpResponse(refundBaseJson, CREATED);
     doReturn(httpResponse)
         .when(HTTP_CLIENT)
         .execute(any(HttpRequestBase.class), any(HttpContext.class));
@@ -67,7 +67,7 @@ class PaymentRefundClientTest extends BaseClientTest {
 
   @Test
   void refundPartialSuccess() throws IOException, MPException, MPApiException {
-    HttpResponse httpResponse = generateHttpResponseFromFile(refundBaseJson, CREATED);
+    HttpResponse httpResponse = generateHttpResponse(refundBaseJson, CREATED);
     doReturn(httpResponse)
         .when(HTTP_CLIENT)
         .execute(any(HttpRequestBase.class), any(HttpContext.class));
@@ -86,7 +86,7 @@ class PaymentRefundClientTest extends BaseClientTest {
   @Test
   public void refundPartialWithRequestOptionsSuccess()
       throws IOException, MPException, MPApiException {
-    HttpResponse httpResponse = generateHttpResponseFromFile(refundBaseJson, CREATED);
+    HttpResponse httpResponse = generateHttpResponse(refundBaseJson, CREATED);
     doReturn(httpResponse)
         .when(HTTP_CLIENT)
         .execute(any(HttpRequestBase.class), any(HttpContext.class));
@@ -104,7 +104,7 @@ class PaymentRefundClientTest extends BaseClientTest {
 
   @Test
   public void getRefundSuccess() throws IOException, MPException, MPApiException {
-    HttpResponse httpResponse = generateHttpResponseFromFile(refundBaseJson, OK);
+    HttpResponse httpResponse = generateHttpResponse(refundBaseJson, OK);
     doReturn(httpResponse)
         .when(HTTP_CLIENT)
         .execute(any(HttpRequestBase.class), any(HttpContext.class));
@@ -115,7 +115,7 @@ class PaymentRefundClientTest extends BaseClientTest {
 
   @Test
   public void getRefundWithRequestOptionsSuccess() throws IOException, MPException, MPApiException {
-    HttpResponse httpResponse = generateHttpResponseFromFile(refundBaseJson, OK);
+    HttpResponse httpResponse = generateHttpResponse(refundBaseJson, OK);
     doReturn(httpResponse)
         .when(HTTP_CLIENT)
         .execute(any(HttpRequestBase.class), any(HttpContext.class));
@@ -126,7 +126,7 @@ class PaymentRefundClientTest extends BaseClientTest {
 
   @Test
   public void listRefundsSuccess() throws IOException, MPException, MPApiException {
-    HttpResponse httpResponse = generateHttpResponseFromFile(refundListJson, OK);
+    HttpResponse httpResponse = generateHttpResponse(refundListJson, OK);
     doReturn(httpResponse)
         .when(HTTP_CLIENT)
         .execute(any(HttpRequestBase.class), any(HttpContext.class));
@@ -141,7 +141,7 @@ class PaymentRefundClientTest extends BaseClientTest {
   @Test
   public void listRefundsWithRequestOptionsSuccess()
       throws IOException, MPException, MPApiException {
-    HttpResponse httpResponse = generateHttpResponseFromFile(refundListJson, OK);
+    HttpResponse httpResponse = generateHttpResponse(refundListJson, OK);
     doReturn(httpResponse)
         .when(HTTP_CLIENT)
         .execute(any(HttpRequestBase.class), any(HttpContext.class));

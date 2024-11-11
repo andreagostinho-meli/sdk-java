@@ -1,6 +1,6 @@
 package com.mercadopago.client.merchantorder;
 
-import static com.mercadopago.helper.MockHelper.generateHttpResponseFromFile;
+import static com.mercadopago.helper.MockHelper.generateHttpResponse;
 import static com.mercadopago.helper.MockHelper.generateJsonElement;
 import static com.mercadopago.helper.MockHelper.generateJsonElementFromUriRequest;
 import static com.mercadopago.net.HttpStatus.CREATED;
@@ -48,7 +48,7 @@ class MerchantOrderClientTest extends BaseClientTest {
 
   @Test
   void createSuccess() throws MPException, MPApiException, IOException {
-    HttpResponse httpResponse = generateHttpResponseFromFile(orderBaseJson, CREATED);
+    HttpResponse httpResponse = generateHttpResponse(orderBaseJson, CREATED);
     doReturn(httpResponse)
         .when(HTTP_CLIENT)
         .execute(any(HttpRequestBase.class), any(HttpContext.class));
@@ -70,7 +70,7 @@ class MerchantOrderClientTest extends BaseClientTest {
 
   @Test
   void createWithRequestOptionsSuccess() throws MPException, MPApiException, IOException {
-    HttpResponse httpResponse = generateHttpResponseFromFile(orderBaseJson, CREATED);
+    HttpResponse httpResponse = generateHttpResponse(orderBaseJson, CREATED);
     doReturn(httpResponse)
         .when(HTTP_CLIENT)
         .execute(any(HttpRequestBase.class), any(HttpContext.class));
@@ -92,7 +92,7 @@ class MerchantOrderClientTest extends BaseClientTest {
 
   @Test
   void getSuccess() throws MPException, MPApiException, IOException {
-    HttpResponse httpResponse = generateHttpResponseFromFile(orderBaseJson, OK);
+    HttpResponse httpResponse = generateHttpResponse(orderBaseJson, OK);
     doReturn(httpResponse)
         .when(HTTP_CLIENT)
         .execute(any(HttpRequestBase.class), any(HttpContext.class));
@@ -106,7 +106,7 @@ class MerchantOrderClientTest extends BaseClientTest {
 
   @Test
   void getWithRequestOptionsSuccess() throws MPException, MPApiException, IOException {
-    HttpResponse httpResponse = generateHttpResponseFromFile(orderBaseJson, OK);
+    HttpResponse httpResponse = generateHttpResponse(orderBaseJson, OK);
     doReturn(httpResponse)
         .when(HTTP_CLIENT)
         .execute(any(HttpRequestBase.class), any(HttpContext.class));
@@ -120,7 +120,7 @@ class MerchantOrderClientTest extends BaseClientTest {
 
   @Test
   void updateSuccess() throws MPException, MPApiException, IOException {
-    HttpResponse httpResponse = generateHttpResponseFromFile(orderUpdatedJson, OK);
+    HttpResponse httpResponse = generateHttpResponse(orderUpdatedJson, OK);
     doReturn(httpResponse)
         .when(HTTP_CLIENT)
         .execute(any(HttpRequestBase.class), any(HttpContext.class));
@@ -145,7 +145,7 @@ class MerchantOrderClientTest extends BaseClientTest {
 
   @Test
   void updateWithRequestOptionsSuccess() throws MPException, MPApiException, IOException {
-    HttpResponse httpResponse = generateHttpResponseFromFile(orderUpdatedJson, OK);
+    HttpResponse httpResponse = generateHttpResponse(orderUpdatedJson, OK);
     doReturn(httpResponse)
         .when(HTTP_CLIENT)
         .execute(any(HttpRequestBase.class), any(HttpContext.class));
@@ -171,7 +171,7 @@ class MerchantOrderClientTest extends BaseClientTest {
 
   @Test
   void searchSuccess() throws MPException, MPApiException, IOException {
-    HttpResponse httpResponse = generateHttpResponseFromFile(orderSearchJson, OK);
+    HttpResponse httpResponse = generateHttpResponse(orderSearchJson, OK);
     doReturn(httpResponse)
         .when(HTTP_CLIENT)
         .execute(any(HttpRequestBase.class), any(HttpContext.class));
@@ -193,7 +193,7 @@ class MerchantOrderClientTest extends BaseClientTest {
 
   @Test
   void searchWithRequestOptionsSuccess() throws MPException, MPApiException, IOException {
-    HttpResponse httpResponse = generateHttpResponseFromFile(orderSearchJson, OK);
+    HttpResponse httpResponse = generateHttpResponse(orderSearchJson, OK);
     doReturn(httpResponse)
         .when(HTTP_CLIENT)
         .execute(any(HttpRequestBase.class), any(HttpContext.class));

@@ -248,7 +248,7 @@ public class OrderClient extends MercadoPagoClient {
         LOGGER.info("Sending order transaction delete request");
 
         if (StringUtils.isBlank(orderId) || StringUtils.isBlank(transactionId)) {
-            throw new IllegalArgumentException("Order id and Transaction id cannot be null or empty");
+            throw new IllegalArgumentException("Order or Transaction id cannot be null or empty");
         }
 
         String url = String.format(URL_TRANSACTION_WITH_ID, orderId, transactionId);

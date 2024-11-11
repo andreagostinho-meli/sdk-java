@@ -59,7 +59,7 @@ public class MockHelper {
    * @return http response
    * @throws IOException exception
    */
-  public static HttpResponse generateHttpResponseFromFile(String mockFile, int statusCode)
+  public static HttpResponse generateHttpResponse(String mockFile, int statusCode)
       throws IOException {
 
     String payload = readResponseFile(mockFile);
@@ -73,7 +73,7 @@ public class MockHelper {
    * @param statusCode status code
    * @return http response
    */
-  public static HttpResponse generateHttpResponseFromFile(int statusCode) {
+  public static HttpResponse generateHttpResponse(int statusCode) {
 
     return new BasicHttpResponse(
         new BasicStatusLine(HttpVersion.HTTP_1_1, statusCode, REASON_PHRASE.get(statusCode)));

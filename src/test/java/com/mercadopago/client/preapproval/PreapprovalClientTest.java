@@ -1,6 +1,6 @@
 package com.mercadopago.client.preapproval;
 
-import static com.mercadopago.helper.MockHelper.generateHttpResponseFromFile;
+import static com.mercadopago.helper.MockHelper.generateHttpResponse;
 import static com.mercadopago.helper.MockHelper.generateJsonElement;
 import static com.mercadopago.helper.MockHelper.generateJsonElementFromUriRequest;
 import static com.mercadopago.net.HttpStatus.CREATED;
@@ -50,7 +50,7 @@ class PreapprovalClientTest extends BaseClientTest {
 
   @Test
   void getSuccess() throws IOException, MPException, MPApiException {
-    HttpResponse httpResponse = generateHttpResponseFromFile(preapprovalBaseJson, OK);
+    HttpResponse httpResponse = generateHttpResponse(preapprovalBaseJson, OK);
     doReturn(httpResponse)
         .when(HTTP_CLIENT)
         .execute(any(HttpRequestBase.class), any(HttpContext.class));
@@ -64,7 +64,7 @@ class PreapprovalClientTest extends BaseClientTest {
 
   @Test
   void getWithRequestOptionsSuccess() throws IOException, MPException, MPApiException {
-    HttpResponse httpResponse = generateHttpResponseFromFile(preapprovalBaseJson, OK);
+    HttpResponse httpResponse = generateHttpResponse(preapprovalBaseJson, OK);
     doReturn(httpResponse)
         .when(HTTP_CLIENT)
         .execute(any(HttpRequestBase.class), any(HttpContext.class));
@@ -78,7 +78,7 @@ class PreapprovalClientTest extends BaseClientTest {
 
   @Test
   void createSuccess() throws IOException, MPException, MPApiException {
-    HttpResponse httpResponse = generateHttpResponseFromFile(preapprovalBaseJson, CREATED);
+    HttpResponse httpResponse = generateHttpResponse(preapprovalBaseJson, CREATED);
     doReturn(httpResponse)
         .when(HTTP_CLIENT)
         .execute(any(HttpRequestBase.class), any(HttpContext.class));
@@ -98,7 +98,7 @@ class PreapprovalClientTest extends BaseClientTest {
 
   @Test
   void createWithRequestOptionsSuccess() throws IOException, MPException, MPApiException {
-    HttpResponse httpResponse = generateHttpResponseFromFile(preapprovalBaseJson, CREATED);
+    HttpResponse httpResponse = generateHttpResponse(preapprovalBaseJson, CREATED);
     doReturn(httpResponse)
         .when(HTTP_CLIENT)
         .execute(any(HttpRequestBase.class), any(HttpContext.class));
@@ -118,7 +118,7 @@ class PreapprovalClientTest extends BaseClientTest {
 
   @Test
   void updateSuccess() throws MPException, MPApiException, IOException {
-    HttpResponse httpResponse = generateHttpResponseFromFile(preapprovalUpdateJson, OK);
+    HttpResponse httpResponse = generateHttpResponse(preapprovalUpdateJson, OK);
     doReturn(httpResponse)
         .when(HTTP_CLIENT)
         .execute(any(HttpRequestBase.class), any(HttpContext.class));
@@ -139,7 +139,7 @@ class PreapprovalClientTest extends BaseClientTest {
 
   @Test
   void updateWithRequestOptionsSuccess() throws IOException, MPException, MPApiException {
-    HttpResponse httpResponse = generateHttpResponseFromFile(preapprovalUpdateJson, OK);
+    HttpResponse httpResponse = generateHttpResponse(preapprovalUpdateJson, OK);
     doReturn(httpResponse)
         .when(HTTP_CLIENT)
         .execute(any(HttpRequestBase.class), any(HttpContext.class));
@@ -160,7 +160,7 @@ class PreapprovalClientTest extends BaseClientTest {
 
   @Test
   void searchSuccess() throws IOException, MPException, MPApiException {
-    HttpResponse httpResponse = generateHttpResponseFromFile(preapprovalListJson, OK);
+    HttpResponse httpResponse = generateHttpResponse(preapprovalListJson, OK);
     doReturn(httpResponse)
         .when(HTTP_CLIENT)
         .execute(any(HttpRequestBase.class), any(HttpContext.class));
@@ -181,7 +181,7 @@ class PreapprovalClientTest extends BaseClientTest {
 
   @Test
   void searchWithRequestOptionsSuccess() throws IOException, MPException, MPApiException {
-    HttpResponse httpResponse = generateHttpResponseFromFile(preapprovalListJson, OK);
+    HttpResponse httpResponse = generateHttpResponse(preapprovalListJson, OK);
     doReturn(httpResponse)
         .when(HTTP_CLIENT)
         .execute(any(HttpRequestBase.class), any(HttpContext.class));

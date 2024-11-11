@@ -49,7 +49,7 @@ public class MercadoPagoClientTest extends BaseClientTest {
   public void sendWithBodySuccess() throws IOException, MPException, MPApiException {
     String request = MockHelper.readRequestFile(requestFile);
     JsonObject requestObject = JsonParser.parseString(request).getAsJsonObject();
-    HttpResponse httpResponse = MockHelper.generateHttpResponseFromFile(responseFile, 200);
+    HttpResponse httpResponse = MockHelper.generateHttpResponse(responseFile, 200);
     doReturn(httpResponse)
         .when(httpClientMock)
         .execute(any(HttpRequestBase.class), any(HttpContext.class));
@@ -68,7 +68,7 @@ public class MercadoPagoClientTest extends BaseClientTest {
   @Test
   public void sendWithIdempotentHeaderIfMethodIsPost()
       throws IOException, MPException, MPApiException {
-    HttpResponse httpResponse = MockHelper.generateHttpResponseFromFile(responseFile, 201);
+    HttpResponse httpResponse = MockHelper.generateHttpResponse(responseFile, 201);
     doReturn(httpResponse)
         .when(httpClientMock)
         .execute(any(HttpRequestBase.class), any(HttpContext.class));
@@ -86,7 +86,7 @@ public class MercadoPagoClientTest extends BaseClientTest {
 
   @Test
   public void sendWithoutBodySuccess() throws IOException, MPException, MPApiException {
-    HttpResponse httpResponse = MockHelper.generateHttpResponseFromFile(responseFile, 200);
+    HttpResponse httpResponse = MockHelper.generateHttpResponse(responseFile, 200);
     doReturn(httpResponse)
         .when(httpClientMock)
         .execute(any(HttpRequestBase.class), any(HttpContext.class));
@@ -108,7 +108,7 @@ public class MercadoPagoClientTest extends BaseClientTest {
     queryParams.put("entry1", "value&1");
     queryParams.put("entry2", "value!2");
 
-    HttpResponse httpResponse = MockHelper.generateHttpResponseFromFile(responseFile, 200);
+    HttpResponse httpResponse = MockHelper.generateHttpResponse(responseFile, 200);
     doReturn(httpResponse)
         .when(httpClientMock)
         .execute(any(HttpRequestBase.class), any(HttpContext.class));
@@ -132,7 +132,7 @@ public class MercadoPagoClientTest extends BaseClientTest {
 
   @Test
   public void sendWithMPRequestOptionsSuccess() throws IOException, MPException, MPApiException {
-    HttpResponse httpResponse = MockHelper.generateHttpResponseFromFile(responseFile, 200);
+    HttpResponse httpResponse = MockHelper.generateHttpResponse(responseFile, 200);
     doReturn(httpResponse)
         .when(httpClientMock)
         .execute(any(HttpRequestBase.class), any(HttpContext.class));
@@ -145,7 +145,7 @@ public class MercadoPagoClientTest extends BaseClientTest {
 
   @Test
   public void sendWithRequiredHeaders() throws IOException, MPException, MPApiException {
-    HttpResponse httpResponse = MockHelper.generateHttpResponseFromFile(responseFile, 200);
+    HttpResponse httpResponse = MockHelper.generateHttpResponse(responseFile, 200);
     doReturn(httpResponse)
         .when(httpClientMock)
         .execute(any(HttpRequestBase.class), any(HttpContext.class));
@@ -205,7 +205,7 @@ public class MercadoPagoClientTest extends BaseClientTest {
     MPSearchRequest searchRequest =
         MPSearchRequest.builder().limit(10).offset(100).filters(filters).build();
 
-    HttpResponse httpResponse = MockHelper.generateHttpResponseFromFile(responseFile, 200);
+    HttpResponse httpResponse = MockHelper.generateHttpResponse(responseFile, 200);
     doReturn(httpResponse)
         .when(httpClientMock)
         .execute(any(HttpRequestBase.class), any(HttpContext.class));
@@ -222,7 +222,7 @@ public class MercadoPagoClientTest extends BaseClientTest {
 
   @Test
   public void searchWithoutParametersSuccess() throws IOException, MPException, MPApiException {
-    HttpResponse httpResponse = MockHelper.generateHttpResponseFromFile(responseFile, 200);
+    HttpResponse httpResponse = MockHelper.generateHttpResponse(responseFile, 200);
     doReturn(httpResponse)
         .when(httpClientMock)
         .execute(any(HttpRequestBase.class), any(HttpContext.class));
@@ -236,7 +236,7 @@ public class MercadoPagoClientTest extends BaseClientTest {
   public void listWithBodySuccess() throws IOException, MPException, MPApiException {
     String request = MockHelper.readRequestFile(requestFile);
     JsonObject requestObject = JsonParser.parseString(request).getAsJsonObject();
-    HttpResponse httpResponse = MockHelper.generateHttpResponseFromFile(responseFile, 200);
+    HttpResponse httpResponse = MockHelper.generateHttpResponse(responseFile, 200);
     doReturn(httpResponse)
         .when(httpClientMock)
         .execute(any(HttpRequestBase.class), any(HttpContext.class));
@@ -249,7 +249,7 @@ public class MercadoPagoClientTest extends BaseClientTest {
 
   @Test
   public void listWithoutBodySuccess() throws IOException, MPException, MPApiException {
-    HttpResponse httpResponse = MockHelper.generateHttpResponseFromFile(responseFile, 200);
+    HttpResponse httpResponse = MockHelper.generateHttpResponse(responseFile, 200);
     doReturn(httpResponse)
         .when(httpClientMock)
         .execute(any(HttpRequestBase.class), any(HttpContext.class));
@@ -265,7 +265,7 @@ public class MercadoPagoClientTest extends BaseClientTest {
     queryParams.put("entry1", "value&1");
     queryParams.put("entry2", "value!2");
 
-    HttpResponse httpResponse = MockHelper.generateHttpResponseFromFile(responseFile, 200);
+    HttpResponse httpResponse = MockHelper.generateHttpResponse(responseFile, 200);
     doReturn(httpResponse)
         .when(httpClientMock)
         .execute(any(HttpRequestBase.class), any(HttpContext.class));
@@ -281,7 +281,7 @@ public class MercadoPagoClientTest extends BaseClientTest {
 
   @Test
   public void listWithMPRequestOptionsSuccess() throws IOException, MPException, MPApiException {
-    HttpResponse httpResponse = MockHelper.generateHttpResponseFromFile(responseFile, 200);
+    HttpResponse httpResponse = MockHelper.generateHttpResponse(responseFile, 200);
     doReturn(httpResponse)
         .when(httpClientMock)
         .execute(any(HttpRequestBase.class), any(HttpContext.class));

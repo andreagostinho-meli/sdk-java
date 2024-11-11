@@ -1,6 +1,6 @@
 package com.mercadopago.client.paymentmethod;
 
-import static com.mercadopago.helper.MockHelper.generateHttpResponseFromFile;
+import static com.mercadopago.helper.MockHelper.generateHttpResponse;
 import static com.mercadopago.net.HttpStatus.OK;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -30,7 +30,7 @@ class PaymentMethodClientTest extends BaseClientTest {
 
   @Test
   void listSuccess() throws MPException, MPApiException, IOException {
-    HttpResponse httpResponse = generateHttpResponseFromFile(paymentMethodBaseJson, OK);
+    HttpResponse httpResponse = generateHttpResponse(paymentMethodBaseJson, OK);
     doReturn(httpResponse)
         .when(HTTP_CLIENT)
         .execute(any(HttpRequestBase.class), any(HttpContext.class));
@@ -43,7 +43,7 @@ class PaymentMethodClientTest extends BaseClientTest {
 
   @Test
   public void listSuccessWithRequestOptions() throws IOException, MPException, MPApiException {
-    HttpResponse httpResponse = generateHttpResponseFromFile(paymentMethodBaseJson, OK);
+    HttpResponse httpResponse = generateHttpResponse(paymentMethodBaseJson, OK);
     doReturn(httpResponse)
         .when(HTTP_CLIENT)
         .execute(any(HttpRequestBase.class), any(HttpContext.class));

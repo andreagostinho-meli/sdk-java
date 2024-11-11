@@ -1,6 +1,6 @@
 package com.mercadopago.client.identificationtype;
 
-import static com.mercadopago.helper.MockHelper.generateHttpResponseFromFile;
+import static com.mercadopago.helper.MockHelper.generateHttpResponse;
 import static com.mercadopago.net.HttpStatus.OK;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -26,7 +26,7 @@ class IdentificationTypeClientTest extends BaseClientTest {
 
   @Test
   void listSuccess() throws IOException, MPException, MPApiException {
-    HttpResponse httpResponse = generateHttpResponseFromFile(identificationTypesJson, OK);
+    HttpResponse httpResponse = generateHttpResponse(identificationTypesJson, OK);
     doReturn(httpResponse)
         .when(HTTP_CLIENT)
         .execute(any(HttpRequestBase.class), any(HttpContext.class));
@@ -39,7 +39,7 @@ class IdentificationTypeClientTest extends BaseClientTest {
 
   @Test
   void testListWithRequestOptionsSuccess() throws IOException, MPException, MPApiException {
-    HttpResponse httpResponse = generateHttpResponseFromFile(identificationTypesJson, OK);
+    HttpResponse httpResponse = generateHttpResponse(identificationTypesJson, OK);
     doReturn(httpResponse)
         .when(HTTP_CLIENT)
         .execute(any(HttpRequestBase.class), any(HttpContext.class));
