@@ -16,7 +16,6 @@ import com.google.gson.JsonElement;
 import com.mercadopago.BaseClientTest;
 import com.mercadopago.exceptions.MPApiException;
 import com.mercadopago.exceptions.MPException;
-import com.mercadopago.helper.MockHelper;
 import com.mercadopago.net.MPResultsResourcesPage;
 import com.mercadopago.net.MPSearchRequest;
 import com.mercadopago.resources.preapproval.Preapproval;
@@ -51,7 +50,7 @@ class PreapprovalClientTest extends BaseClientTest {
 
   @Test
   void getSuccess() throws IOException, MPException, MPApiException {
-    HttpResponse httpResponse = MockHelper.generateHttpResponseFromFile(preapprovalBaseJson, OK);
+    HttpResponse httpResponse = generateHttpResponseFromFile(preapprovalBaseJson, OK);
     doReturn(httpResponse)
         .when(HTTP_CLIENT)
         .execute(any(HttpRequestBase.class), any(HttpContext.class));
@@ -65,7 +64,7 @@ class PreapprovalClientTest extends BaseClientTest {
 
   @Test
   void getWithRequestOptionsSuccess() throws IOException, MPException, MPApiException {
-    HttpResponse httpResponse = MockHelper.generateHttpResponseFromFile(preapprovalBaseJson, OK);
+    HttpResponse httpResponse = generateHttpResponseFromFile(preapprovalBaseJson, OK);
     doReturn(httpResponse)
         .when(HTTP_CLIENT)
         .execute(any(HttpRequestBase.class), any(HttpContext.class));
@@ -79,7 +78,7 @@ class PreapprovalClientTest extends BaseClientTest {
 
   @Test
   void createSuccess() throws IOException, MPException, MPApiException {
-    HttpResponse httpResponse = MockHelper.generateHttpResponseFromFile(preapprovalBaseJson, CREATED);
+    HttpResponse httpResponse = generateHttpResponseFromFile(preapprovalBaseJson, CREATED);
     doReturn(httpResponse)
         .when(HTTP_CLIENT)
         .execute(any(HttpRequestBase.class), any(HttpContext.class));
@@ -99,7 +98,7 @@ class PreapprovalClientTest extends BaseClientTest {
 
   @Test
   void createWithRequestOptionsSuccess() throws IOException, MPException, MPApiException {
-    HttpResponse httpResponse = MockHelper.generateHttpResponseFromFile(preapprovalBaseJson, CREATED);
+    HttpResponse httpResponse = generateHttpResponseFromFile(preapprovalBaseJson, CREATED);
     doReturn(httpResponse)
         .when(HTTP_CLIENT)
         .execute(any(HttpRequestBase.class), any(HttpContext.class));
@@ -119,7 +118,7 @@ class PreapprovalClientTest extends BaseClientTest {
 
   @Test
   void updateSuccess() throws MPException, MPApiException, IOException {
-    HttpResponse httpResponse = MockHelper.generateHttpResponseFromFile(preapprovalUpdateJson, OK);
+    HttpResponse httpResponse = generateHttpResponseFromFile(preapprovalUpdateJson, OK);
     doReturn(httpResponse)
         .when(HTTP_CLIENT)
         .execute(any(HttpRequestBase.class), any(HttpContext.class));
@@ -140,7 +139,7 @@ class PreapprovalClientTest extends BaseClientTest {
 
   @Test
   void updateWithRequestOptionsSuccess() throws IOException, MPException, MPApiException {
-    HttpResponse httpResponse = MockHelper.generateHttpResponseFromFile(preapprovalUpdateJson, OK);
+    HttpResponse httpResponse = generateHttpResponseFromFile(preapprovalUpdateJson, OK);
     doReturn(httpResponse)
         .when(HTTP_CLIENT)
         .execute(any(HttpRequestBase.class), any(HttpContext.class));
@@ -161,7 +160,7 @@ class PreapprovalClientTest extends BaseClientTest {
 
   @Test
   void searchSuccess() throws IOException, MPException, MPApiException {
-    HttpResponse httpResponse = MockHelper.generateHttpResponseFromFile(preapprovalListJson, OK);
+    HttpResponse httpResponse = generateHttpResponseFromFile(preapprovalListJson, OK);
     doReturn(httpResponse)
         .when(HTTP_CLIENT)
         .execute(any(HttpRequestBase.class), any(HttpContext.class));
@@ -182,7 +181,7 @@ class PreapprovalClientTest extends BaseClientTest {
 
   @Test
   void searchWithRequestOptionsSuccess() throws IOException, MPException, MPApiException {
-    HttpResponse httpResponse = MockHelper.generateHttpResponseFromFile(preapprovalListJson, OK);
+    HttpResponse httpResponse = generateHttpResponseFromFile(preapprovalListJson, OK);
     doReturn(httpResponse)
         .when(HTTP_CLIENT)
         .execute(any(HttpRequestBase.class), any(HttpContext.class));

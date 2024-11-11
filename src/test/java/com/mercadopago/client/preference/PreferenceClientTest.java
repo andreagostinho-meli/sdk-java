@@ -20,7 +20,6 @@ import com.mercadopago.client.common.IdentificationRequest;
 import com.mercadopago.client.common.PhoneRequest;
 import com.mercadopago.exceptions.MPApiException;
 import com.mercadopago.exceptions.MPException;
-import com.mercadopago.helper.MockHelper;
 import com.mercadopago.net.MPElementsResourcesPage;
 import com.mercadopago.net.MPSearchRequest;
 import com.mercadopago.resources.preference.Preference;
@@ -55,7 +54,7 @@ class PreferenceClientTest extends BaseClientTest {
 
   @Test
   void getSuccess() throws IOException, MPException, MPApiException {
-    HttpResponse httpResponse = MockHelper.generateHttpResponseFromFile(preferenceBaseJson, OK);
+    HttpResponse httpResponse = generateHttpResponseFromFile(preferenceBaseJson, OK);
     doReturn(httpResponse)
         .when(HTTP_CLIENT)
         .execute(any(HttpRequestBase.class), any(HttpContext.class));
@@ -68,7 +67,7 @@ class PreferenceClientTest extends BaseClientTest {
 
   @Test
   void getWithRequestOptionsSuccess() throws IOException, MPException, MPApiException {
-    HttpResponse httpResponse = MockHelper.generateHttpResponseFromFile(preferenceBaseJson, OK);
+    HttpResponse httpResponse = generateHttpResponseFromFile(preferenceBaseJson, OK);
     doReturn(httpResponse)
         .when(HTTP_CLIENT)
         .execute(any(HttpRequestBase.class), any(HttpContext.class));
@@ -81,7 +80,7 @@ class PreferenceClientTest extends BaseClientTest {
 
   @Test
   void createSuccess() throws IOException, MPException, MPApiException {
-    HttpResponse httpResponse = MockHelper.generateHttpResponseFromFile(preferenceBaseJson, CREATED);
+    HttpResponse httpResponse = generateHttpResponseFromFile(preferenceBaseJson, CREATED);
     doReturn(httpResponse)
         .when(HTTP_CLIENT)
         .execute(any(HttpRequestBase.class), any(HttpContext.class));
@@ -99,7 +98,7 @@ class PreferenceClientTest extends BaseClientTest {
 
   @Test
   void createWithRequestOptionsSuccess() throws IOException, MPException, MPApiException {
-    HttpResponse httpResponse = MockHelper.generateHttpResponseFromFile(preferenceBaseJson, CREATED);
+    HttpResponse httpResponse = generateHttpResponseFromFile(preferenceBaseJson, CREATED);
     doReturn(httpResponse)
         .when(HTTP_CLIENT)
         .execute(any(HttpRequestBase.class), any(HttpContext.class));
@@ -117,7 +116,7 @@ class PreferenceClientTest extends BaseClientTest {
 
   @Test
   void updateSuccess() throws IOException, MPException, MPApiException {
-    HttpResponse httpResponse = MockHelper.generateHttpResponseFromFile(preferenceUpdatedJson, OK);
+    HttpResponse httpResponse = generateHttpResponseFromFile(preferenceUpdatedJson, OK);
     doReturn(httpResponse)
         .when(HTTP_CLIENT)
         .execute(any(HttpRequestBase.class), any(HttpContext.class));
@@ -136,7 +135,7 @@ class PreferenceClientTest extends BaseClientTest {
 
   @Test
   void updateWithRequestOptionsSuccess() throws IOException, MPException, MPApiException {
-    HttpResponse httpResponse = MockHelper.generateHttpResponseFromFile(preferenceUpdatedJson, OK);
+    HttpResponse httpResponse = generateHttpResponseFromFile(preferenceUpdatedJson, OK);
     doReturn(httpResponse)
         .when(HTTP_CLIENT)
         .execute(any(HttpRequestBase.class), any(HttpContext.class));
@@ -156,7 +155,7 @@ class PreferenceClientTest extends BaseClientTest {
 
   @Test
   void searchSuccess() throws IOException, MPException, MPApiException {
-    HttpResponse httpResponse = MockHelper.generateHttpResponseFromFile(preferenceListJson, OK);
+    HttpResponse httpResponse = generateHttpResponseFromFile(preferenceListJson, OK);
     doReturn(httpResponse)
         .when(HTTP_CLIENT)
         .execute(any(HttpRequestBase.class), any(HttpContext.class));
@@ -170,7 +169,7 @@ class PreferenceClientTest extends BaseClientTest {
 
   @Test
   void searchWithRequestOptionsSuccess() throws IOException, MPException, MPApiException {
-    HttpResponse httpResponse = MockHelper.generateHttpResponseFromFile(preferenceListJson, OK);
+    HttpResponse httpResponse = generateHttpResponseFromFile(preferenceListJson, OK);
     doReturn(httpResponse)
         .when(HTTP_CLIENT)
         .execute(any(HttpRequestBase.class), any(HttpContext.class));

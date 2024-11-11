@@ -17,7 +17,6 @@ import com.google.gson.JsonElement;
 import com.mercadopago.BaseClientTest;
 import com.mercadopago.exceptions.MPApiException;
 import com.mercadopago.exceptions.MPException;
-import com.mercadopago.helper.MockHelper;
 import com.mercadopago.net.MPSearchRequest;
 import com.mercadopago.resources.point.PointCancelPaymentIntent;
 import com.mercadopago.resources.point.PointDeviceOperatingMode;
@@ -62,7 +61,7 @@ class PointClientTest extends BaseClientTest {
 
   @Test
   void createPaymentIntentSuccess() throws IOException, MPException, MPApiException {
-    HttpResponse httpResponse = MockHelper.generateHttpResponseFromFile(paymentIntentJson, CREATED);
+    HttpResponse httpResponse = generateHttpResponseFromFile(paymentIntentJson, CREATED);
     doReturn(httpResponse)
         .when(HTTP_CLIENT)
         .execute(any(HttpRequestBase.class), any(HttpContext.class));
@@ -83,7 +82,7 @@ class PointClientTest extends BaseClientTest {
   @Test
   void createPaymentIntentWithRequestOptionsSuccess()
       throws IOException, MPException, MPApiException {
-    HttpResponse httpResponse = MockHelper.generateHttpResponseFromFile(paymentIntentJson, CREATED);
+    HttpResponse httpResponse = generateHttpResponseFromFile(paymentIntentJson, CREATED);
     doReturn(httpResponse)
         .when(HTTP_CLIENT)
         .execute(any(HttpRequestBase.class), any(HttpContext.class));
@@ -103,7 +102,7 @@ class PointClientTest extends BaseClientTest {
 
   @Test
   void getPaymentIntentListSuccess() throws IOException, MPException, MPApiException {
-    HttpResponse httpResponse = MockHelper.generateHttpResponseFromFile(paymentIntentListJson, OK);
+    HttpResponse httpResponse = generateHttpResponseFromFile(paymentIntentListJson, OK);
     doReturn(httpResponse)
         .when(HTTP_CLIENT)
         .execute(any(HttpRequestBase.class), any(HttpContext.class));
@@ -119,7 +118,7 @@ class PointClientTest extends BaseClientTest {
   @Test
   void getPaymentIntentListWithRequestOptionsSuccess()
       throws IOException, MPException, MPApiException {
-    HttpResponse httpResponse = MockHelper.generateHttpResponseFromFile(paymentIntentListJson, OK);
+    HttpResponse httpResponse = generateHttpResponseFromFile(paymentIntentListJson, OK);
     doReturn(httpResponse)
         .when(HTTP_CLIENT)
         .execute(any(HttpRequestBase.class), any(HttpContext.class));
@@ -134,7 +133,7 @@ class PointClientTest extends BaseClientTest {
 
   @Test
   void cancelPaymentIntentSuccess() throws IOException, MPException, MPApiException {
-    HttpResponse httpResponse = MockHelper.generateHttpResponseFromFile(paymentIntentDeleteJson, OK);
+    HttpResponse httpResponse = generateHttpResponseFromFile(paymentIntentDeleteJson, OK);
     doReturn(httpResponse)
         .when(HTTP_CLIENT)
         .execute(any(HttpRequestBase.class), any(HttpContext.class));
@@ -150,7 +149,7 @@ class PointClientTest extends BaseClientTest {
   @Test
   void cancelPaymentIntentWithRequestOptionsSuccess()
       throws IOException, MPException, MPApiException {
-    HttpResponse httpResponse = MockHelper.generateHttpResponseFromFile(paymentIntentDeleteJson, OK);
+    HttpResponse httpResponse = generateHttpResponseFromFile(paymentIntentDeleteJson, OK);
     doReturn(httpResponse)
         .when(HTTP_CLIENT)
         .execute(any(HttpRequestBase.class), any(HttpContext.class));
@@ -165,7 +164,7 @@ class PointClientTest extends BaseClientTest {
 
   @Test
   void searchPaymentIntentSuccess() throws IOException, MPException, MPApiException {
-    HttpResponse httpResponse = MockHelper.generateHttpResponseFromFile(paymentIntentSearchJson, OK);
+    HttpResponse httpResponse = generateHttpResponseFromFile(paymentIntentSearchJson, OK);
     doReturn(httpResponse)
         .when(HTTP_CLIENT)
         .execute(any(HttpRequestBase.class), any(HttpContext.class));
@@ -180,7 +179,7 @@ class PointClientTest extends BaseClientTest {
   @Test
   void searchPaymentIntentWithRequestOptionsSuccess()
       throws IOException, MPException, MPApiException {
-    HttpResponse httpResponse = MockHelper.generateHttpResponseFromFile(paymentIntentSearchJson, OK);
+    HttpResponse httpResponse = generateHttpResponseFromFile(paymentIntentSearchJson, OK);
     doReturn(httpResponse)
         .when(HTTP_CLIENT)
         .execute(any(HttpRequestBase.class), any(HttpContext.class));
@@ -195,7 +194,7 @@ class PointClientTest extends BaseClientTest {
 
   @Test
   void getPaymentIntentStatusSuccess() throws IOException, MPException, MPApiException {
-    HttpResponse httpResponse = MockHelper.generateHttpResponseFromFile(paymentIntentStatusJson, OK);
+    HttpResponse httpResponse = generateHttpResponseFromFile(paymentIntentStatusJson, OK);
     doReturn(httpResponse)
         .when(HTTP_CLIENT)
         .execute(any(HttpRequestBase.class), any(HttpContext.class));
@@ -213,7 +212,7 @@ class PointClientTest extends BaseClientTest {
   @Test
   void getPaymentIntentStatusWithRequestOptionsSuccess()
       throws IOException, MPException, MPApiException {
-    HttpResponse httpResponse = MockHelper.generateHttpResponseFromFile(paymentIntentStatusJson, OK);
+    HttpResponse httpResponse = generateHttpResponseFromFile(paymentIntentStatusJson, OK);
     doReturn(httpResponse)
         .when(HTTP_CLIENT)
         .execute(any(HttpRequestBase.class), any(HttpContext.class));
@@ -231,7 +230,7 @@ class PointClientTest extends BaseClientTest {
 
   @Test
   void getDevicesSuccess() throws IOException, MPException, MPApiException {
-    HttpResponse httpResponse = MockHelper.generateHttpResponseFromFile(devicesListJson, OK);
+    HttpResponse httpResponse = generateHttpResponseFromFile(devicesListJson, OK);
     doReturn(httpResponse)
         .when(HTTP_CLIENT)
         .execute(any(HttpRequestBase.class), any(HttpContext.class));
@@ -245,7 +244,7 @@ class PointClientTest extends BaseClientTest {
 
   @Test
   void getDevicesWithRequestOptionsSuccess() throws IOException, MPException, MPApiException {
-    HttpResponse httpResponse = MockHelper.generateHttpResponseFromFile(devicesListJson, OK);
+    HttpResponse httpResponse = generateHttpResponseFromFile(devicesListJson, OK);
     doReturn(httpResponse)
         .when(HTTP_CLIENT)
         .execute(any(HttpRequestBase.class), any(HttpContext.class));
@@ -259,7 +258,7 @@ class PointClientTest extends BaseClientTest {
 
   @Test
   void changeDeviceOperatingModeSuccess() throws IOException, MPException, MPApiException {
-    HttpResponse httpResponse = MockHelper.generateHttpResponseFromFile(devicesOperatingModeJson, OK);
+    HttpResponse httpResponse = generateHttpResponseFromFile(devicesOperatingModeJson, OK);
     doReturn(httpResponse)
         .when(HTTP_CLIENT)
         .execute(any(HttpRequestBase.class), any(HttpContext.class));
@@ -283,7 +282,7 @@ class PointClientTest extends BaseClientTest {
   @Test
   void changeDeviceOperatingModeWithRequestOptionsSuccess()
       throws IOException, MPException, MPApiException {
-    HttpResponse httpResponse = MockHelper.generateHttpResponseFromFile(devicesOperatingModeJson, OK);
+    HttpResponse httpResponse = generateHttpResponseFromFile(devicesOperatingModeJson, OK);
     doReturn(httpResponse)
         .when(HTTP_CLIENT)
         .execute(any(HttpRequestBase.class), any(HttpContext.class));

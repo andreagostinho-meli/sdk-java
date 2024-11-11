@@ -15,7 +15,6 @@ import com.google.gson.JsonElement;
 import com.mercadopago.BaseClientTest;
 import com.mercadopago.exceptions.MPApiException;
 import com.mercadopago.exceptions.MPException;
-import com.mercadopago.helper.MockHelper;
 import com.mercadopago.net.MPResourceList;
 import com.mercadopago.resources.payment.PaymentRefund;
 import java.io.IOException;
@@ -44,7 +43,7 @@ class PaymentRefundClientTest extends BaseClientTest {
 
   @Test
   void refundSuccess() throws IOException, MPException, MPApiException {
-    HttpResponse httpResponse = MockHelper.generateHttpResponseFromFile(refundBaseJson, CREATED);
+    HttpResponse httpResponse = generateHttpResponseFromFile(refundBaseJson, CREATED);
     doReturn(httpResponse)
         .when(HTTP_CLIENT)
         .execute(any(HttpRequestBase.class), any(HttpContext.class));
@@ -56,7 +55,7 @@ class PaymentRefundClientTest extends BaseClientTest {
 
   @Test
   public void refundWithRequestOptionsSuccess() throws IOException, MPException, MPApiException {
-    HttpResponse httpResponse = MockHelper.generateHttpResponseFromFile(refundBaseJson, CREATED);
+    HttpResponse httpResponse = generateHttpResponseFromFile(refundBaseJson, CREATED);
     doReturn(httpResponse)
         .when(HTTP_CLIENT)
         .execute(any(HttpRequestBase.class), any(HttpContext.class));
@@ -68,7 +67,7 @@ class PaymentRefundClientTest extends BaseClientTest {
 
   @Test
   void refundPartialSuccess() throws IOException, MPException, MPApiException {
-    HttpResponse httpResponse = MockHelper.generateHttpResponseFromFile(refundBaseJson, CREATED);
+    HttpResponse httpResponse = generateHttpResponseFromFile(refundBaseJson, CREATED);
     doReturn(httpResponse)
         .when(HTTP_CLIENT)
         .execute(any(HttpRequestBase.class), any(HttpContext.class));
@@ -87,7 +86,7 @@ class PaymentRefundClientTest extends BaseClientTest {
   @Test
   public void refundPartialWithRequestOptionsSuccess()
       throws IOException, MPException, MPApiException {
-    HttpResponse httpResponse = MockHelper.generateHttpResponseFromFile(refundBaseJson, CREATED);
+    HttpResponse httpResponse = generateHttpResponseFromFile(refundBaseJson, CREATED);
     doReturn(httpResponse)
         .when(HTTP_CLIENT)
         .execute(any(HttpRequestBase.class), any(HttpContext.class));
@@ -105,7 +104,7 @@ class PaymentRefundClientTest extends BaseClientTest {
 
   @Test
   public void getRefundSuccess() throws IOException, MPException, MPApiException {
-    HttpResponse httpResponse = MockHelper.generateHttpResponseFromFile(refundBaseJson, OK);
+    HttpResponse httpResponse = generateHttpResponseFromFile(refundBaseJson, OK);
     doReturn(httpResponse)
         .when(HTTP_CLIENT)
         .execute(any(HttpRequestBase.class), any(HttpContext.class));
@@ -116,7 +115,7 @@ class PaymentRefundClientTest extends BaseClientTest {
 
   @Test
   public void getRefundWithRequestOptionsSuccess() throws IOException, MPException, MPApiException {
-    HttpResponse httpResponse = MockHelper.generateHttpResponseFromFile(refundBaseJson, OK);
+    HttpResponse httpResponse = generateHttpResponseFromFile(refundBaseJson, OK);
     doReturn(httpResponse)
         .when(HTTP_CLIENT)
         .execute(any(HttpRequestBase.class), any(HttpContext.class));
@@ -127,7 +126,7 @@ class PaymentRefundClientTest extends BaseClientTest {
 
   @Test
   public void listRefundsSuccess() throws IOException, MPException, MPApiException {
-    HttpResponse httpResponse = MockHelper.generateHttpResponseFromFile(refundListJson, OK);
+    HttpResponse httpResponse = generateHttpResponseFromFile(refundListJson, OK);
     doReturn(httpResponse)
         .when(HTTP_CLIENT)
         .execute(any(HttpRequestBase.class), any(HttpContext.class));
@@ -142,7 +141,7 @@ class PaymentRefundClientTest extends BaseClientTest {
   @Test
   public void listRefundsWithRequestOptionsSuccess()
       throws IOException, MPException, MPApiException {
-    HttpResponse httpResponse = MockHelper.generateHttpResponseFromFile(refundListJson, OK);
+    HttpResponse httpResponse = generateHttpResponseFromFile(refundListJson, OK);
     doReturn(httpResponse)
         .when(HTTP_CLIENT)
         .execute(any(HttpRequestBase.class), any(HttpContext.class));

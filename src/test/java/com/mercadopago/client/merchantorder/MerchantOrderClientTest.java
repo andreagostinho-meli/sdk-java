@@ -17,7 +17,6 @@ import com.google.gson.JsonElement;
 import com.mercadopago.BaseClientTest;
 import com.mercadopago.exceptions.MPApiException;
 import com.mercadopago.exceptions.MPException;
-import com.mercadopago.helper.MockHelper;
 import com.mercadopago.net.MPElementsResourcesPage;
 import com.mercadopago.net.MPSearchRequest;
 import com.mercadopago.resources.merchantorder.MerchantOrder;
@@ -49,7 +48,7 @@ class MerchantOrderClientTest extends BaseClientTest {
 
   @Test
   void createSuccess() throws MPException, MPApiException, IOException {
-    HttpResponse httpResponse = MockHelper.generateHttpResponseFromFile(orderBaseJson, CREATED);
+    HttpResponse httpResponse = generateHttpResponseFromFile(orderBaseJson, CREATED);
     doReturn(httpResponse)
         .when(HTTP_CLIENT)
         .execute(any(HttpRequestBase.class), any(HttpContext.class));
@@ -71,7 +70,7 @@ class MerchantOrderClientTest extends BaseClientTest {
 
   @Test
   void createWithRequestOptionsSuccess() throws MPException, MPApiException, IOException {
-    HttpResponse httpResponse = MockHelper.generateHttpResponseFromFile(orderBaseJson, CREATED);
+    HttpResponse httpResponse = generateHttpResponseFromFile(orderBaseJson, CREATED);
     doReturn(httpResponse)
         .when(HTTP_CLIENT)
         .execute(any(HttpRequestBase.class), any(HttpContext.class));
@@ -93,7 +92,7 @@ class MerchantOrderClientTest extends BaseClientTest {
 
   @Test
   void getSuccess() throws MPException, MPApiException, IOException {
-    HttpResponse httpResponse = MockHelper.generateHttpResponseFromFile(orderBaseJson, OK);
+    HttpResponse httpResponse = generateHttpResponseFromFile(orderBaseJson, OK);
     doReturn(httpResponse)
         .when(HTTP_CLIENT)
         .execute(any(HttpRequestBase.class), any(HttpContext.class));
@@ -107,7 +106,7 @@ class MerchantOrderClientTest extends BaseClientTest {
 
   @Test
   void getWithRequestOptionsSuccess() throws MPException, MPApiException, IOException {
-    HttpResponse httpResponse = MockHelper.generateHttpResponseFromFile(orderBaseJson, OK);
+    HttpResponse httpResponse = generateHttpResponseFromFile(orderBaseJson, OK);
     doReturn(httpResponse)
         .when(HTTP_CLIENT)
         .execute(any(HttpRequestBase.class), any(HttpContext.class));
@@ -121,7 +120,7 @@ class MerchantOrderClientTest extends BaseClientTest {
 
   @Test
   void updateSuccess() throws MPException, MPApiException, IOException {
-    HttpResponse httpResponse = MockHelper.generateHttpResponseFromFile(orderUpdatedJson, OK);
+    HttpResponse httpResponse = generateHttpResponseFromFile(orderUpdatedJson, OK);
     doReturn(httpResponse)
         .when(HTTP_CLIENT)
         .execute(any(HttpRequestBase.class), any(HttpContext.class));
@@ -146,7 +145,7 @@ class MerchantOrderClientTest extends BaseClientTest {
 
   @Test
   void updateWithRequestOptionsSuccess() throws MPException, MPApiException, IOException {
-    HttpResponse httpResponse = MockHelper.generateHttpResponseFromFile(orderUpdatedJson, OK);
+    HttpResponse httpResponse = generateHttpResponseFromFile(orderUpdatedJson, OK);
     doReturn(httpResponse)
         .when(HTTP_CLIENT)
         .execute(any(HttpRequestBase.class), any(HttpContext.class));
@@ -172,7 +171,7 @@ class MerchantOrderClientTest extends BaseClientTest {
 
   @Test
   void searchSuccess() throws MPException, MPApiException, IOException {
-    HttpResponse httpResponse = MockHelper.generateHttpResponseFromFile(orderSearchJson, OK);
+    HttpResponse httpResponse = generateHttpResponseFromFile(orderSearchJson, OK);
     doReturn(httpResponse)
         .when(HTTP_CLIENT)
         .execute(any(HttpRequestBase.class), any(HttpContext.class));
@@ -194,7 +193,7 @@ class MerchantOrderClientTest extends BaseClientTest {
 
   @Test
   void searchWithRequestOptionsSuccess() throws MPException, MPApiException, IOException {
-    HttpResponse httpResponse = MockHelper.generateHttpResponseFromFile(orderSearchJson, OK);
+    HttpResponse httpResponse = generateHttpResponseFromFile(orderSearchJson, OK);
     doReturn(httpResponse)
         .when(HTTP_CLIENT)
         .execute(any(HttpRequestBase.class), any(HttpContext.class));
