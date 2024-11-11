@@ -252,7 +252,6 @@ public class OrderClient extends MercadoPagoClient {
         }
 
         String url = String.format(URL_TRANSACTION_WITH_ID, orderId, transactionId);
-        url = String.format(url, orderId, transactionId);
         LOGGER.fine("Delete transaction URL: " + url);
 
         MPResponse response = send(url, HttpMethod.DELETE, null, null, requestOptions);

@@ -39,7 +39,7 @@ class IdentificationTypeClientTest extends BaseClientTest {
 
   @Test
   void testListWithRequestOptionsSuccess() throws IOException, MPException, MPApiException {
-    HttpResponse httpResponse = MockHelper.generateHttpResponseFromFile(identificationTypesJson, OK);
+    HttpResponse httpResponse = generateHttpResponseFromFile(identificationTypesJson, OK);
     doReturn(httpResponse)
         .when(HTTP_CLIENT)
         .execute(any(HttpRequestBase.class), any(HttpContext.class));
