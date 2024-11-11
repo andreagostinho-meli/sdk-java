@@ -5,10 +5,7 @@ import com.mercadopago.client.MercadoPagoClient;
 import com.mercadopago.core.MPRequestOptions;
 import com.mercadopago.exceptions.MPApiException;
 import com.mercadopago.exceptions.MPException;
-import com.mercadopago.net.HttpMethod;
-import com.mercadopago.net.MPHttpClient;
-import com.mercadopago.net.MPRequest;
-import com.mercadopago.net.MPResponse;
+import com.mercadopago.net.*;
 import com.mercadopago.resources.order.Order;
 import com.mercadopago.resources.order.OrderTransaction;
 import com.mercadopago.serialization.Serializer;
@@ -27,6 +24,7 @@ public class OrderClient extends MercadoPagoClient {
     private static final String URL_PROCESS = URL_WITH_ID + "/process";
     private static final String URL_TRANSACTION = URL_WITH_ID + "/transactions";
     private static final String URL_CANCEL = URL_WITH_ID + "/cancel";
+    private static final String URL_TRANSACTION_WITH_ID = URL_WITH_ID + "/transactions/%s";
 
     /** Default constructor. Uses the default http client used by the SDK. */
     public OrderClient() {
@@ -235,5 +233,44 @@ public class OrderClient extends MercadoPagoClient {
         return order;
     }
 
-   
+    /**
+     * Method responsible for deleting a transaction from the Order
+     *
+     * @param orderId The ID of the order for which the transaction is created
+     * @param transactionId The ID of the transaction to be retrieved
+     * @param requestOptions Metadata to customize the request
+     * @return The response for the action
+     * @throws MPException an error if the request fails
+     * @throws MPApiException an error if the request fails
+     */
+    public OrderTransaction deleteTransaction(String orderId, String transactionId, MPRequestOptions requestOptions)
+            throws MPException, MPApiException {
+        LOGGER.info("Sending order transaction delete request");
+
+        if (StringUtils.isBlank(orderId) || StringUtils.isBlank(transactionId)) {
+            throw new IllegalArgumentException("Order or Transaction id cannot be null or empty");
+        }
+
+        String url = String.format(URL_TRANSACTION_WITH_ID, orderId, transactionId);
+        LOGGER.fine("Delete transaction URL: " + url);
+
+        MPResponse response = send(url, HttpMethod.DELETE, null, null, requestOptions);
+        OrderTransaction order = new OrderTransaction();
+        order.setResponse(response);
+        return order;
+    }
+
+    /**
+     * Method responsible for deleting a transaction from the Order
+     *
+     * @param orderId The ID of the order for which the transaction is created
+     * @param transactionId The ID of the transaction to be retrieved
+     * @return The response for the action
+     * @throws MPException an error if the request fails
+     * @throws MPApiException an error if the request fails
+     */
+    public OrderTransaction deleteTransaction(String orderId, String transactionId)
+            throws MPException, MPApiException {
+        return this.deleteTransaction(orderId, transactionId, null);
+    }
 }
