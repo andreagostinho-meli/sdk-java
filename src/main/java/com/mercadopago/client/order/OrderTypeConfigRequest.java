@@ -1,9 +1,11 @@
 package com.mercadopago.client.order;
 
+import lombok.Builder;
 import lombok.Getter;
 
 /** OrderTypeConfigRequest class. */
 @Getter
+@Builder
 public class OrderTypeConfigRequest {
 
     /** Capture mode. */

@@ -24,6 +24,7 @@ public class OrderClient extends MercadoPagoClient {
     private static final String URL_PROCESS = URL_WITH_ID + "/process";
     private static final String URL_TRANSACTION = URL_WITH_ID + "/transactions";
     private static final String URL_CANCEL = URL_WITH_ID + "/cancel";
+    private static final String URL_CAPTURE = URL_WITH_ID + "/capture";
     private static final String URL_TRANSACTION_WITH_ID = URL_WITH_ID + "/transactions/%s";
 
     /** Default constructor. Uses the default http client used by the SDK. */
@@ -106,9 +107,7 @@ public class OrderClient extends MercadoPagoClient {
     public Order get(String id, MPRequestOptions requestOptions) throws MPException, MPApiException {
         LOGGER.info("Sending order get request");
 
-        if (StringUtils.isBlank(id)) {
-            throw new IllegalArgumentException("Order id cannot be null or empty");
-        }
+        validOrderID(id);
 
         String url = String.format(URL_WITH_ID, id);
         MPResponse response = send(url, HttpMethod.GET, null, null, requestOptions);
@@ -143,9 +142,7 @@ public class OrderClient extends MercadoPagoClient {
     public Order process(String id, MPRequestOptions requestOptions) throws MPException, MPApiException {
         LOGGER.info("Sending order process request");
 
-        if (StringUtils.isBlank(id)) {
-            throw new IllegalArgumentException("Order id cannot be null or empty");
-        }
+        validOrderID(id);
 
         String url = String.format(URL_PROCESS, id);
         MPResponse response = send(url, HttpMethod.POST, null, null, requestOptions);
@@ -156,7 +153,7 @@ public class OrderClient extends MercadoPagoClient {
     }
 
 
-     /**
+    /**
      * Method responsible for creating order with request options
      *
      * @param orderId The ID of the order for which the transaction is created
@@ -220,9 +217,7 @@ public class OrderClient extends MercadoPagoClient {
     public Order cancel(String orderId, MPRequestOptions requestOptions) throws MPException, MPApiException {
         LOGGER.info("Sending order to delete");
 
-        if (StringUtils.isBlank(orderId)) {
-            throw new IllegalArgumentException("Order id cannot be null or empty");
-        }
+        validOrderID(orderId);
 
         String url = String.format(URL_CANCEL, orderId);
         MPResponse response = send(url, HttpMethod.POST, null, null, requestOptions);
@@ -234,7 +229,46 @@ public class OrderClient extends MercadoPagoClient {
     }
 
     /**
-     * Method responsible for deleting a transaction from the Order
+     * Method responsible for capturing an order without request options
+     *
+     * @param orderId orderId
+     * @return order response
+     * @throws MPException an error if the request fails
+     * @throws MPApiException an error if the request fails
+     */
+    public  Order capture(String orderId) throws MPException, MPApiException {
+        return this.capture(orderId, null);
+    }
+
+    /**
+     * Method responsible for capturing an order by ID with request options
+     * @param orderId The ID of the order for which the transaction is created
+     * @param requestOptions The request object containing transaction details
+     * @return order response
+     * @throws MPException an error if the request fails
+     * @throws MPApiException an error if the request fails
+     */
+    public Order capture(String orderId, MPRequestOptions requestOptions) throws MPException, MPApiException {
+        LOGGER.info("Sending order to capture");
+
+        validOrderID(orderId);
+
+        String url = String.format(URL_CAPTURE, orderId);
+        MPResponse response = send(url, HttpMethod.POST, null, null, requestOptions);
+
+        Order order = Serializer.deserializeFromJson(Order.class, response.getContent());
+        order.setResponse(response);
+
+        return order;
+    }
+
+    private void validOrderID(String id) {
+        if (StringUtils.isBlank(id)) {
+            throw new IllegalArgumentException("Order id cannot be null or empty");
+        }
+    }
+
+     /** Method responsible for deleting a transaction from the Order
      *
      * @param orderId The ID of the order for which the transaction is created
      * @param transactionId The ID of the transaction to be retrieved
