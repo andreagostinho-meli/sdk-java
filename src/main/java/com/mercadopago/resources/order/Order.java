@@ -5,6 +5,8 @@ import lombok.Getter;
 
 import java.util.List;
 
+/* Swagger version: 54cea3ac-c258-4a6f-aea9-988e641cff30 */
+
 /** Order class. */
 @Getter
 public class Order extends MPResource {
