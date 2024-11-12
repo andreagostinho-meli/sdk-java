@@ -12,7 +12,7 @@
     "application_id": "id"
   },
   "payer": {
-    "email": "test@email.com"
+    "email": "test@test.com"
   },
   "transactions": {
     "payments": [

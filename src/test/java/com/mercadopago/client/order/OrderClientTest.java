@@ -26,6 +26,7 @@ class OrderClientTest extends BaseClientTest {
     //File Mock Responses
     private static final String CREATE_ORDER_RESPONSE_FILE = "order/create_order_response.json";
     private static final String CREATE_TRANSACTION_RESPONSE_FILE = "order/create_transaction_response.json";
+    private static final String UPDATE_TRANSACTION_FILE = "order/update_transaction_response.json";
     private static final String CAPTURE_ORDER_RESPONSE_FILE = "order/capture_order_response.json";
 
     private final OrderClient client = new OrderClient();
@@ -150,17 +151,6 @@ class OrderClientTest extends BaseClientTest {
         Assertions.assertEquals("master", orderTransaction.getPayments().get(0).getPaymentMethod().getId());
     }
 
-    @Test
-    void deleteTransactionWithNullIdThrowsException() {
-        String orderId = null;
-        String transactionId = null;
-
-        IllegalArgumentException exception = Assertions.assertThrows(IllegalArgumentException.class, () -> {
-            client.deleteTransaction(orderId, transactionId);
-        });
-
-        Assertions.assertEquals("Order or Transaction id cannot be null or empty", exception.getMessage());
-    }
 
     @Test
     void deleteTransactionSuccessWithValidIds() throws MPException, MPApiException, IOException {
@@ -178,6 +168,26 @@ class OrderClientTest extends BaseClientTest {
     }
 
     @Test
+    void updateTransactionSuccessWithValidIds() throws MPException, MPApiException, IOException {
+        HttpResponse response = MockHelper.generateHttpResponseFromFile(UPDATE_TRANSACTION_FILE, HttpStatus.OK);
+        Mockito.doReturn(response).when(HTTP_CLIENT).execute(any(HttpRequestBase.class), any(HttpContext.class));
+
+        String orderId = "01JC44RHN3TD6BHGH89A011FW3";
+        String transactionId = "pay_01JC44RS4MZE4Z7KJVCDP249FR";
+
+        OrderPaymentRequest paymentRequest = OrderPaymentRequest.builder()
+                .amount("980.00")
+                .build();
+
+
+        OrderTransaction updatedTransaction = client.updateTransaction(orderId, transactionId, paymentRequest);
+
+        Assertions.assertNotNull(updatedTransaction);
+        Assertions.assertEquals(HttpStatus.OK, updatedTransaction.getResponse().getStatusCode());
+    }
+
+
+    @Test
     void captureSuccess() throws MPException, MPApiException, IOException {
 
         //Mock HttpClient
@@ -190,5 +200,57 @@ class OrderClientTest extends BaseClientTest {
         //then
         Assertions.assertNotNull(order);
         Assertions.assertEquals(order.getStatus(), "processed");
+    }
+
+    @Test
+    void validOrderIDWithValidId() {
+        String validId = "123";
+        Assertions.assertDoesNotThrow(() -> {
+            client.validateOrderID(validId);
+        });
+    }
+
+    @Test
+    void validOrderIDWithNullIdThrowsException() {
+        String nullId = null;
+        IllegalArgumentException exception = Assertions.assertThrows(IllegalArgumentException.class, () -> {
+            client.validateOrderID(nullId);
+        });
+        Assertions.assertEquals("Order id cannot be null or empty", exception.getMessage());
+    }
+
+    @Test
+    void validOrderIDWithEmptyIdThrowsException() {
+        String emptyId = "";
+        IllegalArgumentException exception = Assertions.assertThrows(IllegalArgumentException.class, () -> {
+            client.validateOrderID(emptyId);
+        });
+        Assertions.assertEquals("Order id cannot be null or empty", exception.getMessage());
+    }
+
+    @Test
+    void validTransactionIDWithValidId() {
+        String validId = "trans_123";
+        Assertions.assertDoesNotThrow(() -> {
+            client.validateTransactionID(validId);
+        });
+    }
+
+    @Test
+    void validTransactionIDWithNullIdThrowsException() {
+        String nullId = null;
+        IllegalArgumentException exception = Assertions.assertThrows(IllegalArgumentException.class, () -> {
+            client.validateTransactionID(nullId);
+        });
+        Assertions.assertEquals("Transaction id cannot be null or empty", exception.getMessage());
+    }
+
+    @Test
+    void validTransactionIDWithEmptyIdThrowsException() {
+        String emptyId = "";
+        IllegalArgumentException exception = Assertions.assertThrows(IllegalArgumentException.class, () -> {
+            client.validateTransactionID(emptyId);
+        });
+        Assertions.assertEquals("Transaction id cannot be null or empty", exception.getMessage());
     }
 }

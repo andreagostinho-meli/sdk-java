@@ -40,7 +40,7 @@ public class CaptureOrder {
                 .totalAmount("10.00")
                 .typeConfig(typeConfig)
                 .externalReference("ext_ref")
-                .payer(OrderPayerRequest.builder().email("test@email.com").build())
+                .payer(OrderPayerRequest.builder().email("test@test.com").build())
                 .transactions(OrderTransactionRequest.builder()
                         .payments(payments)
                         .build())
