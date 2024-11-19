@@ -3,6 +3,7 @@ package com.mercadopago.example.apis.order;
 import com.mercadopago.MercadoPagoConfig;
 import com.mercadopago.client.order.*;
 import com.mercadopago.core.MPRequestOptions;
+import com.mercadopago.net.Headers;
 import com.mercadopago.resources.order.Order;
 
 import java.util.ArrayList;
@@ -47,17 +48,26 @@ public class CaptureOrder {
                 .build();
 
         Map<String, String> headers = new HashMap<>();
-        headers.put("X-Sandbox", "true");
-        headers.put("X-Idempotency-Key", "{{IDEMPOTENCY_KEY}}");
-        headers.put("X-Caller-SiteID", "{{SITE_ID}}");
+        headers.put(Headers.SANDBOX, "true");
+        headers.put(Headers.IDEMPOTENCY_KEY, "{{UNIQUE_NUMBER_CREATE}}");
+        headers.put(Headers.SITE_ID, "MLB");
         MPRequestOptions requestOptions = MPRequestOptions.builder()
                 .customHeaders(headers)
+                .build();
+
+        // RequestOptions to capture the order's flow
+        Map<String, String> headersCapture = new HashMap<>();
+        headers.put(Headers.SANDBOX, "true");
+        headers.put(Headers.IDEMPOTENCY_KEY, "{{UNIQUE_NUMBER_CAPTURE}}");
+        headers.put(Headers.SITE_ID, "MLB");
+        MPRequestOptions requestOptionsCapture = MPRequestOptions.builder()
+                .customHeaders(headersCapture)
                 .build();
 
         try {
             Order order = client.create(request, requestOptions);
             System.out.println("Order created: " + order.getId());
-            Order capturedOrder = client.capture(order.getId(), requestOptions);
+            Order capturedOrder = client.capture(order.getId(), requestOptionsCapture);
             System.out.println("Captured order: " + capturedOrder.getId());
         } catch (Exception e) {
             System.out.println("Error creating order: " + e.getMessage());
