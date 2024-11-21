@@ -11,7 +11,4 @@ public class OrderTransaction extends MPResource{
 
     /** Payments information. */
     private List<OrderPayment> payments;
-
-    /** Refunds information. */
-    private List<OrderRefund> refunds;
 }
