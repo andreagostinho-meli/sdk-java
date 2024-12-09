@@ -6,6 +6,7 @@ import com.mercadopago.exceptions.MPApiException;
 import com.mercadopago.exceptions.MPException;
 import com.mercadopago.resources.CardToken;
 import com.mercadopago.resources.order.Order;
+import com.mercadopago.resources.order.OrderRefund;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -239,6 +240,104 @@ public class OrderClientIT extends BaseClientIT {
       fail(mpApiException.getApiResponse().getContent());
     } catch (MPException mpException) {
       fail(mpException.getMessage());
+    }
+  }
+
+  @Test
+  public void totalRefundOrderSuccess() {
+    try {
+      CardToken cardToken = cardTokenTestClient.createTestCardToken("approved");
+      List<OrderPaymentRequest> paymentRequest = new ArrayList<>();
+      paymentRequest.add(OrderPaymentRequest.builder()
+              .amount("100.00")
+              .paymentMethod(OrderPaymentMethodRequest.builder()
+                      .id("master")
+                      .type("credit_card")
+                      .token(cardToken.getId())
+                      .installments(1)
+                      .build())
+              .build());
+      OrderPayerRequest orderPayerRequest = OrderPayerRequest.builder()
+              .email("test_1731350184@testuser.com")
+              .build();
+      OrderCreateRequest orderCreateRequest = OrderCreateRequest.builder()
+              .type("online")
+              .totalAmount("100.00")
+              .processingMode("automatic")
+              .externalReference("ext_ref_1234")
+              .payer(orderPayerRequest)
+              .transactions(OrderTransactionRequest.builder()
+                      .payments(paymentRequest)
+                      .build())
+              .build();
+
+      Order order = client.create(orderCreateRequest);
+      Thread.sleep(3000);
+      OrderRefund refundedOrder = client.refund(order.getId());
+
+      assertNotNull(refundedOrder.getResponse());
+      assertEquals(CREATED, refundedOrder.getResponse().getStatusCode());
+      assertEquals(order.getId(), refundedOrder.getId());
+      assertEquals("refunded", refundedOrder.getStatus());
+      assertEquals("refunded", refundedOrder.getStatus_detail());
+      assertEquals("processed", refundedOrder.getTransactions().getRefunds().get(0).getStatus());
+    } catch (MPApiException mpApiException) {
+      fail(mpApiException.getApiResponse().getContent());
+    } catch (MPException | InterruptedException e) {
+      fail(e.getMessage());
+    }
+  }
+
+  @Test
+  public void partialRefundOrderSuccess() {
+    try {
+      CardToken cardToken = cardTokenTestClient.createTestCardToken("approved");
+      List<OrderPaymentRequest> paymentRequest = new ArrayList<>();
+      paymentRequest.add(OrderPaymentRequest.builder()
+              .amount("100.00")
+              .paymentMethod(OrderPaymentMethodRequest.builder()
+                      .id("master")
+                      .type("credit_card")
+                      .token(cardToken.getId())
+                      .installments(1)
+                      .build())
+              .build());
+      OrderPayerRequest orderPayerRequest = OrderPayerRequest.builder()
+              .email("test_1731350184@testuser.com")
+              .build();
+      OrderCreateRequest orderCreateRequest = OrderCreateRequest.builder()
+              .type("online")
+              .totalAmount("100.00")
+              .processingMode("automatic")
+              .externalReference("ext_ref_1234")
+              .payer(orderPayerRequest)
+              .transactions(OrderTransactionRequest.builder()
+                      .payments(paymentRequest)
+                      .build())
+              .build();
+
+      Order order = client.create(orderCreateRequest);
+      Thread.sleep(3000);
+      List<OrderRefundPaymentRequest> refundPaymentRequest = new ArrayList<>();
+      refundPaymentRequest.add(OrderRefundPaymentRequest.builder()
+              .id(order.getTransactions().getPayments().get(0).getId())
+              .amount("25.00")
+              .build());
+      OrderRefundRequest orderRefundRequest = OrderRefundRequest.builder()
+              .transactions(refundPaymentRequest)
+              .build();
+      OrderRefund refundedOrder = client.refund(order.getId(), orderRefundRequest);
+
+      assertNotNull(refundedOrder.getResponse());
+      assertEquals(CREATED, refundedOrder.getResponse().getStatusCode());
+      assertEquals(order.getId(), refundedOrder.getId());
+      assertEquals("processed", refundedOrder.getStatus());
+      assertEquals("partially_refunded", refundedOrder.getStatus_detail());
+      assertEquals("processed", refundedOrder.getTransactions().getRefunds().get(0).getStatus());
+    } catch (MPApiException mpApiException) {
+      fail(mpApiException.getApiResponse().getContent());
+    } catch (MPException | InterruptedException e) {
+      fail(e.getMessage());
     }
   }
 }
