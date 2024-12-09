@@ -19,9 +19,6 @@ public class OrderCreateRequest extends MPResource {
     /** Reference you can synchronize with your payment system. */
     private String externalReference;
 
-    /** Order type configuration. */
-    private OrderTypeConfigRequest typeConfig;
-
     /** Order transaction information. */
     private OrderTransactionRequest transactions;
 
@@ -30,6 +27,9 @@ public class OrderCreateRequest extends MPResource {
 
     /** Configures which processing modes to use. */
     private String processingMode;
+
+    /** Capture mode. */
+    private String captureMode;
 
     /** Description of the order. */
     private String description;

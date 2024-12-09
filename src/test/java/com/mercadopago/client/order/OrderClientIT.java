@@ -151,4 +151,50 @@ public class OrderClientIT extends BaseClientIT {
       fail(mpException.getMessage());
     }
   }
+
+  @Test
+  public void captureOrderSuccess() {
+    try {
+      CardToken cardToken = cardTokenTestClient.createTestCardToken("approved");
+      List<OrderPaymentRequest> paymentRequest = new ArrayList<>();
+      paymentRequest.add(OrderPaymentRequest.builder()
+              .amount("100.00")
+              .paymentMethod(OrderPaymentMethodRequest.builder()
+                      .id("master")
+                      .type("credit_card")
+                      .token(cardToken.getId())
+                      .installments(1)
+                      .build())
+              .build());
+      OrderPayerRequest orderPayerRequest = OrderPayerRequest.builder()
+              .email("test_1731350184@testuser.com")
+              .build();
+      OrderCreateRequest orderCreateRequest = OrderCreateRequest.builder()
+              .type("online")
+              .totalAmount("100.00")
+              .processingMode("automatic")
+              .captureMode("manual")
+              .externalReference("ext_ref_1234")
+              .payer(orderPayerRequest)
+              .transactions(OrderTransactionRequest.builder()
+                      .payments(paymentRequest)
+                      .build())
+              .build();
+
+      Order order = client.create(orderCreateRequest);
+      Order capturedOrder = client.capture(order.getId());
+
+      assertNotNull(capturedOrder.getResponse());
+      assertEquals(OK, capturedOrder.getResponse().getStatusCode());
+      assertEquals(order.getId(), capturedOrder.getId());
+      assertEquals("processed", capturedOrder.getStatus());
+      assertEquals("100.00", capturedOrder.getTransactions().getPayments().get(0).getAmount());
+      assertEquals("processed", capturedOrder.getTransactions().getPayments().get(0).getStatus());
+      assertEquals("accredited", capturedOrder.getTransactions().getPayments().get(0).getStatusDetail());
+    } catch (MPApiException mpApiException) {
+      fail(mpApiException.getApiResponse().getContent());
+    } catch (MPException mpException) {
+      fail(mpException.getMessage());
+    }
+  }
 }
