@@ -1,13 +1,13 @@
 package com.mercadopago.client.order;
 
+import com.google.gson.JsonObject;
 import com.mercadopago.MercadoPagoConfig;
 import com.mercadopago.client.MercadoPagoClient;
 import com.mercadopago.core.MPRequestOptions;
 import com.mercadopago.exceptions.MPApiException;
 import com.mercadopago.exceptions.MPException;
 import com.mercadopago.net.*;
-import com.mercadopago.resources.order.Order;
-import com.mercadopago.resources.order.OrderTransaction;
+import com.mercadopago.resources.order.*;
 import com.mercadopago.serialization.Serializer;
 import org.apache.commons.lang.StringUtils;
 
@@ -24,6 +24,7 @@ public class OrderClient extends MercadoPagoClient {
     private static final String URL_TRANSACTION = URL_WITH_ID + "/transactions";
     private static final String URL_CANCEL = URL_WITH_ID + "/cancel";
     private static final String URL_CAPTURE = URL_WITH_ID + "/capture";
+    private static final String URL_REFUND = URL_WITH_ID + "/refund";
     private static final String URL_TRANSACTION_WITH_ID = URL_WITH_ID + "/transactions/%s";
 
     /** Default constructor. Uses the default http client used by the SDK. */
@@ -343,6 +344,72 @@ public class OrderClient extends MercadoPagoClient {
     public OrderTransaction deleteTransaction(String orderId, String transactionId)
             throws MPException, MPApiException {
         return this.deleteTransaction(orderId, transactionId, null);
+    }
+
+    /**
+     * Method responsible for creates a total refunds for payment transactions without request options
+     *
+     * @param orderId      The ID of the order for which the refund is created
+     * @return The response for the order transaction
+     * @throws MPException    an error if the request fails
+     * @throws MPApiException an error if the request fails
+     */
+    public OrderRefund refund(String orderId) throws MPException, MPApiException {
+        return this.refund(orderId, null, null);
+    }
+
+    /**
+     * Method responsible for creates a total refunds for payment transactions without request options
+     *
+     * @param orderId The ID of the order for which the refund is created
+     * @param requestOptions Metadata to customize the request
+     * @return The response for the order transaction
+     * @throws MPException    an error if the request fails
+     * @throws MPApiException an error if the request fails
+     */
+    public OrderRefund refund(String orderId, MPRequestOptions requestOptions) throws MPException, MPApiException {
+        return this.refund(orderId, null, requestOptions);
+    }
+
+    /**
+     * Method responsible for creates a partial refunds for payment transactions with request options
+     * @param orderId The ID of the order for which the refund is created
+     * @param request OrderRefundRequest The request object containing refund details
+     * @return The response for the order transaction
+     * @throws MPException    an error if the request fails
+     * @throws MPApiException an error if the request fails
+     */
+    public OrderRefund refund(String orderId, OrderRefundRequest request) throws MPException, MPApiException {
+        return this.refund(orderId, request, null);
+    }
+
+    /**
+     * Method responsible for creates a partial and total refunds for payment transactions
+     *
+     * @param orderId The ID of the order for which the refund is created
+     * @param requestOptions Metadata to customize the request
+     * @return The response for the order transaction
+     * @throws MPException    an error if the request fails
+     * @throws MPApiException an error if the request fails
+     */
+    public OrderRefund refund(String orderId, OrderRefundRequest request, MPRequestOptions requestOptions) throws MPException, MPApiException {
+        LOGGER.info("Sending order transaction intent request");
+
+        validateOrderID(orderId);
+
+        JsonObject payload = request != null ? Serializer.serializeToJson(request) : null;
+
+        MPRequest mpRequest = MPRequest.builder()
+                .uri(String.format(URL_REFUND, orderId))
+                .method(HttpMethod.POST)
+                .payload(payload)
+                .build();
+
+        MPResponse response = send(mpRequest, requestOptions);
+
+        OrderRefund order = Serializer.deserializeFromJson(OrderRefund.class, response.getContent());
+        order.setResponse(response);
+        return order;
     }
 
     void validateOrderID(String id) {

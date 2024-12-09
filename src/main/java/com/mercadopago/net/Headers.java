@@ -21,4 +21,8 @@ public class Headers {
   public static final String INTEGRATOR_ID = "X-Integrator-Id";
 
   public static final String PLATFORM_ID = "X-Platform-Id";
+
+  public static final String SANDBOX = "X-Sandbox";
+
+  public static final String SITE_ID = "X-Site-Id";
 }

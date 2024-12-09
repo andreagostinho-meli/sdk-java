@@ -1,23 +1,23 @@
 package com.mercadopago.resources.order;
 
+import com.mercadopago.net.MPResource;
 import lombok.Getter;
 
-/** OrderRefund class. */
+/**
+ * OrderRefund class.
+ */
 @Getter
-public class OrderRefund {
+public class OrderRefund extends MPResource {
 
-    /** Refund ID. */
+    /** Refund id. */
     private String id;
 
-    /** Payment ID. */
-    private String paymentId;
-
-    /** Refund amount. */
-    private String amount;
-
-    /** Status of refund. */
+    /** Refund status. */
     private String status;
 
-    /** Reference of the refund. */
-    private OrderReference reference;
+    /** Refund status detail. */
+    private String status_detail;
+
+    /** Object Order Transaction Refund. */
+    private OrderTransactionRefund transactions;
 }
