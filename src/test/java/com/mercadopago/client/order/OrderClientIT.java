@@ -7,6 +7,7 @@ import com.mercadopago.exceptions.MPException;
 import com.mercadopago.resources.CardToken;
 import com.mercadopago.resources.order.Order;
 import com.mercadopago.resources.order.OrderRefund;
+import com.mercadopago.resources.order.OrderTransaction;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -338,6 +339,52 @@ public class OrderClientIT extends BaseClientIT {
       fail(mpApiException.getApiResponse().getContent());
     } catch (MPException | InterruptedException e) {
       fail(e.getMessage());
+    }
+  }
+
+  @Test
+  public void createOrderTransactionSuccess() {
+    try {
+      CardToken cardToken = cardTokenTestClient.createTestCardToken("approved");
+      OrderPayerRequest orderPayerRequest = OrderPayerRequest.builder()
+              .email("test_1731350184@testuser.com")
+              .build();
+      OrderCreateRequest orderCreateRequest = OrderCreateRequest.builder()
+              .type("online")
+              .totalAmount("100.00")
+              .processingMode("manual")
+              .externalReference("ext_ref_1234")
+              .payer(orderPayerRequest)
+              .build();
+      List<OrderPaymentRequest> orderPaymentRequestList = new ArrayList<>();
+      OrderPaymentRequest orderPaymentRequest = OrderPaymentRequest.builder()
+              .amount("100.00")
+              .paymentMethod(OrderPaymentMethodRequest.builder()
+                      .id("master")
+                      .type("credit_card")
+                      .token(cardToken.getId())
+                      .installments(1)
+                      .build())
+              .build();
+      orderPaymentRequestList.add(orderPaymentRequest);
+      OrderTransactionRequest orderTransactionRequest = OrderTransactionRequest.builder()
+              .payments(orderPaymentRequestList)
+              .build();
+
+      Order order = client.create(orderCreateRequest);
+      OrderTransaction orderTransaction = client.createTransaction(order.getId(), orderTransactionRequest);
+
+      assertNotNull(orderTransaction.getResponse());
+      assertEquals(CREATED, orderTransaction.getResponse().getStatusCode());
+      assertNotNull(orderTransaction.getPayments().get(0).getId());
+      assertEquals("100.00", orderTransaction.getPayments().get(0).getAmount());
+      assertEquals("master", orderTransaction.getPayments().get(0).getPaymentMethod().getId());
+      assertEquals("credit_card", orderTransaction.getPayments().get(0).getPaymentMethod().getType());
+      assertEquals(1, orderTransaction.getPayments().get(0).getPaymentMethod().getInstallments());
+    } catch (MPApiException mpApiException) {
+      fail(mpApiException.getApiResponse().getContent());
+    } catch (MPException mpException) {
+      fail(mpException.getMessage());
     }
   }
 }
