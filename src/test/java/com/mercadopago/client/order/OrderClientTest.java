@@ -9,6 +9,7 @@ import com.mercadopago.net.HttpStatus;
 import com.mercadopago.resources.order.Order;
 import com.mercadopago.resources.order.OrderRefund;
 import com.mercadopago.resources.order.OrderTransaction;
+import com.mercadopago.resources.order.UpdateOrderTransaction;
 import com.mercadopago.serialization.Serializer;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpRequestBase;
@@ -185,7 +186,7 @@ class OrderClientTest extends BaseClientTest {
                 .amount("980.00")
                 .build();
 
-        OrderTransaction updatedTransaction = client.updateTransaction(orderId, transactionId, paymentRequest);
+        UpdateOrderTransaction updatedTransaction = client.updateTransaction(orderId, transactionId, paymentRequest);
 
         Assertions.assertNotNull(updatedTransaction);
         Assertions.assertEquals(HttpStatus.OK, updatedTransaction.getResponse().getStatusCode());

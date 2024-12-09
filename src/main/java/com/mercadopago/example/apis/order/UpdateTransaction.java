@@ -7,6 +7,7 @@ import com.mercadopago.client.order.OrderTransactionRequest;
 import com.mercadopago.core.MPRequestOptions;
 import com.mercadopago.net.MPResponse;
 import com.mercadopago.resources.order.OrderTransaction;
+import com.mercadopago.resources.order.UpdateOrderTransaction;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -37,7 +38,7 @@ public class UpdateTransaction {
                 .build();
 
         try {
-            OrderTransaction updatedTransaction = client.updateTransaction(orderId, transactionId, paymentRequest, requestOptions);
+            UpdateOrderTransaction updatedTransaction = client.updateTransaction(orderId, transactionId, paymentRequest, requestOptions);
             System.out.println("Updated transaction: " + updatedTransaction.getResponse().getContent());
         } catch (Exception e) {
             System.out.println("Error updating order transaction: " + e.getMessage());

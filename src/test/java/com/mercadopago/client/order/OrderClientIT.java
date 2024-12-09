@@ -8,6 +8,7 @@ import com.mercadopago.resources.CardToken;
 import com.mercadopago.resources.order.Order;
 import com.mercadopago.resources.order.OrderRefund;
 import com.mercadopago.resources.order.OrderTransaction;
+import com.mercadopago.resources.order.UpdateOrderTransaction;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -381,6 +382,54 @@ public class OrderClientIT extends BaseClientIT {
       assertEquals("master", orderTransaction.getPayments().get(0).getPaymentMethod().getId());
       assertEquals("credit_card", orderTransaction.getPayments().get(0).getPaymentMethod().getType());
       assertEquals(1, orderTransaction.getPayments().get(0).getPaymentMethod().getInstallments());
+    } catch (MPApiException mpApiException) {
+      fail(mpApiException.getApiResponse().getContent());
+    } catch (MPException mpException) {
+      fail(mpException.getMessage());
+    }
+  }
+
+  @Test
+  public void updateOrderTransactionSuccess() {
+    try {
+      CardToken cardToken = cardTokenTestClient.createTestCardToken("approved");
+      List<OrderPaymentRequest> paymentRequest = new ArrayList<>();
+      paymentRequest.add(OrderPaymentRequest.builder()
+              .amount("100.00")
+              .paymentMethod(OrderPaymentMethodRequest.builder()
+                      .id("master")
+                      .type("credit_card")
+                      .token(cardToken.getId())
+                      .installments(1)
+                      .build())
+              .build());
+      OrderPayerRequest orderPayerRequest = OrderPayerRequest.builder()
+              .email("test_1731350184@testuser.com")
+              .build();
+      OrderCreateRequest orderCreateRequest = OrderCreateRequest.builder()
+              .type("online")
+              .totalAmount("100.00")
+              .processingMode("manual")
+              .externalReference("ext_ref_1234")
+              .payer(orderPayerRequest)
+              .transactions(OrderTransactionRequest.builder()
+                      .payments(paymentRequest)
+                      .build())
+              .build();
+      OrderPaymentRequest updatePaymentRequest = OrderPaymentRequest.builder()
+              .paymentMethod(OrderPaymentMethodRequest.builder()
+                      .installments(3)
+                      .build())
+              .build();
+
+      Order order = client.create(orderCreateRequest);
+      String orderId = order.getId();
+      String transactionId = order.getTransactions().getPayments().get(0).getId();
+      UpdateOrderTransaction updatedTransaction = client.updateTransaction(orderId, transactionId, updatePaymentRequest);
+
+      assertNotNull(updatedTransaction.getResponse());
+      assertEquals(OK, updatedTransaction.getResponse().getStatusCode());
+      assertEquals(3, updatedTransaction.getPaymentMethod().getInstallments());
     } catch (MPApiException mpApiException) {
       fail(mpApiException.getApiResponse().getContent());
     } catch (MPException mpException) {

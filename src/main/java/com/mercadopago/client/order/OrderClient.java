@@ -204,7 +204,7 @@ public class OrderClient extends MercadoPagoClient {
      * @throws MPException an error if the request fails
      * @throws MPApiException an error if the request fails
      */
-    public OrderTransaction updateTransaction(String orderId, String transactionId, OrderPaymentRequest request, MPRequestOptions requestOptions) throws MPException, MPApiException {
+    public UpdateOrderTransaction updateTransaction(String orderId, String transactionId, OrderPaymentRequest request, MPRequestOptions requestOptions) throws MPException, MPApiException {
         LOGGER.info("Sending order transaction update request");
 
         validateOrderID(orderId);
@@ -215,12 +215,12 @@ public class OrderClient extends MercadoPagoClient {
 
         MPRequest mpRequest = MPRequest.builder()
                 .uri(url)
-                .method(HttpMethod.PATCH)
+                .method(HttpMethod.PUT)
                 .payload(Serializer.serializeToJson(request))
                 .build();
 
         MPResponse response = send(mpRequest, requestOptions);
-        OrderTransaction order = Serializer.deserializeFromJson(OrderTransaction.class, response.getContent());
+        UpdateOrderTransaction order = Serializer.deserializeFromJson(UpdateOrderTransaction.class, response.getContent());
         order.setResponse(response);
         return order;
     }
@@ -235,7 +235,7 @@ public class OrderClient extends MercadoPagoClient {
      * @throws MPException an error if the request fails
      * @throws MPApiException an error if the request fails
      */
-    public OrderTransaction updateTransaction(String orderId, String transactionId, OrderPaymentRequest request)
+    public UpdateOrderTransaction updateTransaction(String orderId, String transactionId, OrderPaymentRequest request)
             throws MPException, MPApiException {
         return this.updateTransaction(orderId, transactionId, request, null);
     }
