@@ -62,9 +62,6 @@ public class Order extends MPResource {
     /** Status of Order. */
     private String status;
 
-    /** Order type configuration. */
-    private OrderTypeConfig typeConfig;
-
     /** Payer information. */
     private OrderPayer payer;
 
